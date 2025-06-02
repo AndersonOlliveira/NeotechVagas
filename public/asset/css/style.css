@@ -1,0 +1,16 @@
+/* resesto a pagina */
+* {
+    margin: 0;
+    padding: 0;
+
+}
+
+/* .card-consultar-chamado {
+    padding: 30px 0 0 0;
+    width: 100%;
+    margin: 0 auto;
+} */
+#cards{
+  padding-top: 50px;
+  margin: 10px,10px,10px,10px;
+}
