@@ -1,0 +1,1 @@
+"use strict";console.log("acessei esta pagina"),$("#example").DataTable();

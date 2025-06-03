@@ -29,6 +29,7 @@ class VagasRequest extends FormRequest
         'salario'      => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'], 
         'requisitos'   => 'required|string',
         'beneficios'   => 'required|string',
+        'modeloTra'   =>  'required|array',
           
         ];
     }

@@ -11,21 +11,20 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_vagas', function (Blueprint $table) {
-            $table->id();
-            $table->string('titulo');                     
-            $table->text('descricao');                    
-            $table->string('tipo_contrato');              
-            $table->string('local');                      
-            $table->decimal('salario', 10, 2)->nullable(); 
-            $table->text('requisitos')->nullable();       
-            $table->text('beneficios')->nullable();       
-            $table->boolean('vaga_remota')->default(false); 
-            $table->unsignedBigInteger('empresa_id')->nullable(); 
-            $table->date('fechamento_vaga');
-            $table->foreign('empresa_id')->references('id')->on('tb_recruiter')->onDelete('set null');
-            $table->timestamps();
-        });
+        // Schema::create('tb_vagas', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('titulo');                     
+        //     $table->text('descricao');                    
+        //     $table->string('tipo_contrato');              
+        //     $table->string('local');                      
+        //     $table->decimal('salario', 10, 2)->nullable(); 
+        //     $table->text('requisitos')->nullable();       
+        //     $table->text('beneficios')->nullable();       
+        //     $table->unsignedBigInteger('empresa_id')->nullable(); 
+        //     $table->date('fechamento_vaga')->nullable();
+        //    
+        //     $table->timestamps();
+        // });
     }
 
     /**

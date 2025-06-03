@@ -18,7 +18,8 @@ class UserSeeder extends Seeder
             $adim = User::create([
                'name' => 'anderson',
                'email'=> 'anderson.deolliveria@hotmail.com',
-               'password' => Hash::make('demo12345', ['rounds'=> 12])
+               'password' => Hash::make('demo12345', ['rounds'=> 12]),
+               'nivelUser' => 2, //adiministrador 
             ]);
         }
     }

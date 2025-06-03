@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tb_recruiter', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('phone');
-            $table->integer('idUserRecruiter');
-            $table->json('idVagas')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('tb_recruiter', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->bigInteger('phone');
+        //     $table->integer('idUserRecruiter');
+        //     $table->timestamps();
+        // });
     }
 
     /**

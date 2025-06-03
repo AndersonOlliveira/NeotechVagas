@@ -15,7 +15,7 @@ use PhpParser\Node\Stmt\Static_;
 
 class User extends Authenticatable
 {
-    use HasFactory, HasApiTokens, Notifiable;
+    use  HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -95,8 +95,6 @@ class User extends Authenticatable
        {
           $tokens = PersonalAccessToken::where('tokenable_id', $id)
         ->get();   
-
-    
         return $tokens->isEmpty() ? false : true; 
        }
      
@@ -110,5 +108,14 @@ class User extends Authenticatable
          ->get();
         
         return $retorno[0];
+       }
+
+       public static function getUserId($dados)
+       { 
+                extract($dados->all());
+             $result =  DB::table('users')->where('id', $id)->select('email','password')->get();
+
+             return $result[0];
+
        }
 }

@@ -9,7 +9,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="modalVagas">Modal title</h1>
+        <h1 class="modal-title fs-5" id="modalVagas">Cadastrar</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -21,31 +21,48 @@
 
     <div class="mb-3">
       <label for="titulo" class="form-label">Título da Vaga</label>
-      <input type="text" class="form-control" id="titulo" name="titulo" required>
+      <input type="text" class="form-control" id="titulo" name="titulo" >
     </div>
 
     <div class="mb-3">
       <label for="descricao" class="form-label">Descrição da Vaga</label>
-      <textarea class="form-control" id="descricao" name="descricao" rows="4" required></textarea>
+      <textarea class="form-control" id="descricao" name="descricao" rows="4" ></textarea>
     </div>
 
     <div class="mb-3">
       <label for="tipoContrato" class="form-label">Tipo de Contrato</label>
-      <select class="form-select" id="tipoContrato" name="tipoContrato" required>
+      <select class="form-select" id="tipoContrato" name="tipoContrato" >
         <option value="" disabled selected>Selecione</option>
         <option value="clt">CLT</option>
         <option value="pj">PJ</option>
         <option value="freelancer">Freelancer</option>
         <option value="estagio">Estágio</option>
         <option value="temporario">Temporário</option>
+        <option value="CLT/PJ">CLT OU PJ </option>
       </select>
     </div>
 
     <div class="mb-3">
       <label for="local" class="form-label">Local da Vaga</label>
-      <input type="text" class="form-control" id="local" name="local" required>
+      <input type="text" class="form-control" id="local" name="local" >
     </div>
 
+    <div class="mb-3">
+  <div class="form-check">
+  <input class="form-check-input" type="checkbox" value="remoto" id="checkRemoto" name="tipoLocal[]">
+  <label class="form-check-label" for="checkRemoto">Remoto</label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="presencial" id="checkPresencial" name="tipoLocal[]">
+  <label class="form-check-label" for="checkPresencial">Presencial</label>
+</div>
+
+<div class="form-check">
+  <input class="form-check-input" type="checkbox" value="hibrido" id="checkHibrido" name="tipoLocal[]">
+  <label class="form-check-label" for="checkHibrido">Híbrido</label>
+</div>
+    </div>
     <div class="mb-3">
       <label for="salario" class="form-label">Salário (R$)</label>
       <input type="number" class="form-control" id="salario" name="salario" min="0" step="0.01">
@@ -67,7 +84,6 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
@@ -75,8 +91,15 @@
 </div>
 </div>
 
+<!-- aqui vou listar as vagas deste recrutador -->
+<div class="container-fluid" id="cards">
+    <div class="vagas" id="listarVagas"></div>
 
-<p>ESTOU NA TELA DE HOME VOU LISTAR AS VAGAS</p>
+<div class="container-fluid" id="cards">
+<!--redicionar para a page listar --></div>
+<div class="form-control" id="listar-Users"></div>
+
+
 
 
 <script type="module" src="{{ asset('asset/webApi/Controller/controller.js')}}"></script>

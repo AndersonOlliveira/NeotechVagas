@@ -23,10 +23,11 @@ class tb_recruite extends Model
             $insert = [
              'idUserRecruiter' => $idUserInsert,
              'phone' => $phoneMask,
+             'nome_empresa' => $nempresa,
              'created_at' => now()
             ];
 
-            $result =  DB::table('tb_recruiter')->insert($insert);
+             $result = DB::table('tb_recruiter')->insert($insert);
             
                DB::commit();
               

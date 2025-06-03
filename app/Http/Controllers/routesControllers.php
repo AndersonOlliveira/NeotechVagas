@@ -26,6 +26,11 @@ class routesControllers extends Controller
     {
         return view('pages.Cadastrar');
 
+    } 
+      public function List()
+    {
+        return view('pages.ListarUser');
+
     }
     
 }

@@ -1,11 +1,10 @@
-$(document).ready(function(){
+$(document).ready(function () {
     token();
 })
 
-export function pushToken()
-{
-  
-   return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+export function pushToken() {
+
+    return document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 }
 
@@ -13,17 +12,17 @@ export function pushToken()
 function validarCampo(campo, nomeCampo) {
     if (campo == '' || campo == null || campo != 0) {
         return `Campo ${nomeCampo} não pode ser vazio.`;
-        
+
     }
-    return false; 
+    return false;
 }
 
 
-export function validacampos (nameComplente,email,phone,genero,dataNasc,city,estado,formacoes){
-  
+export function validacampos(nameComplente, email, phone, genero, dataNasc, city, estado, formacoes) {
+
     let erros = [];
 
-    
+
 
     if (validarCampo(nameComplente, 'Nome')) erros.push(validarCampo(nameComplente, 'Nome'));
     if (validarCampo(email, 'E-mail')) erros.push(validarCampo(email, 'E-mail'));
@@ -35,24 +34,24 @@ export function validacampos (nameComplente,email,phone,genero,dataNasc,city,est
     if (validarCampo(formacoes, 'Formação')) erros.push(validarCampo(formacoes, 'Formação'));
 
     if (erros.length > 0) {
-        return erros; 
+        return erros;
     }
 
     return false;
 
 }
-export function validacamposRecrutador (nameComplente,email,phone,senhaRe){
-  
+export function validacamposRecrutador(nameComplente, email, phone, senhaRe) {
+
     let erros = [];
-  
+
     if (validarCampo(nameComplente, 'Nome')) erros.push(validarCampo(nameComplente, 'Nome'));
     if (validarCampo(email, 'E-mail')) erros.push(validarCampo(email, 'E-mail'));
     if (validarCampo(phone, 'Telefone')) erros.push(validarCampo(phone, 'Telefone'));
     if (validarCampo(senhaRe, 'Senha')) erros.push(validarCampo(senhaRe, 'Senha'));
-   
+
 
     if (erros.length > 0) {
-        return erros; 
+        return erros;
     }
 
     return false;
@@ -60,12 +59,12 @@ export function validacamposRecrutador (nameComplente,email,phone,senhaRe){
 }
 
 
-export function mascaraEmail(email){
+export function mascaraEmail(email) {
 
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if(regex.test(email)){
+    if (regex.test(email)) {
         return true;
-    }else{
+    } else {
         return false;
     }
 
@@ -74,24 +73,24 @@ export function mascaraEmail(email){
 
 export function formatarTelefone(campo) {
 
-    
-    let numero = campo.value.replace(/\D/g, ''); 
+
+    let numero = campo.value.replace(/\D/g, '');
     if (numero.length >= 11) {
         campo.value = numero.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
         return true;
-    } else{ 
+    } else {
         return false;
     }
 }
 
-export function saveStorage(name,email,telefone){
-   
-    localStorage.setItem('nome', name); 
+export function saveStorage(name, email, telefone) {
+
+    localStorage.setItem('nome', name);
     localStorage.setItem('email', email);
     localStorage.setItem('telefone', telefone);
 
 }
-export function pushStorage(){
+export function pushStorage() {
     let nomeStorage = localStorage.getItem('nome');
     let emailStorage = localStorage.getItem('email');
     let telefoneStorage = localStorage.getItem('telefone');
@@ -100,51 +99,48 @@ export function pushStorage(){
     if (telefoneStorage) document.getElementById('InputTel').value = telefoneStorage;
 }
 
-export function Estados()
-{ 
-     $(document).ready(function () {
-   
-    $.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados", function (data) {
-        data.sort((a, b) => a.sigla.localeCompare(b.sigla)); 
-        $('#select-estado').append('<option value="">Selecione o estado</option>');
-        $.each(data, function (index, estado) {
-            $('#select-estado').append(`<option value="${estado.id}">${estado.sigla}</option>`);
+export function Estados() {
+    $(document).ready(function () {
+
+        $.get("https://servicodados.ibge.gov.br/api/v1/localidades/estados", function (data) {
+            data.sort((a, b) => a.sigla.localeCompare(b.sigla));
+            $('#select-estado').append('<option value="">Selecione o estado</option>');
+            $.each(data, function (index, estado) {
+                $('#select-estado').append(`<option value="${estado.id}">${estado.sigla}</option>`);
+            });
         });
-    });
 
-    // carrega as cidades de acordo com select do estado
-    $('#select-estado').on('change', function () {
-        const estadoId = $(this).val();
-        if (!estadoId) return;
+        // carrega as cidades de acordo com select do estado
+        $('#select-estado').on('change', function () {
+            const estadoId = $(this).val();
+            if (!estadoId) return;
 
-        $('#select-cidade').empty().append('<option value="">Carregando...</option>');
-         $.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoId}/municipios`, function (data) {
-            $('#select-cidade').empty().append('<option value="">Selecione a cidade</option>');
-            $.each(data, function (index, cidade) {
-               
-                $('#select-cidade').append(`<option value="${cidade.id}">${cidade.nome}</option>`);
+            $('#select-cidade').empty().append('<option value="">Carregando...</option>');
+            $.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoId}/municipios`, function (data) {
+                $('#select-cidade').empty().append('<option value="">Selecione a cidade</option>');
+                $.each(data, function (index, cidade) {
+
+                    $('#select-cidade').append(`<option value="${cidade.id}">${cidade.nome}</option>`);
+                });
             });
         });
     });
-});
 
 }
-export function Error(erros)
-{
+export function Error(erros) {
     const divErro = document.getElementById("erros-vazios");
 
-     //pego os erros
+    //pego os erros
     if (erros) {
         divErro.innerHTML = erros.map(erro => `<p>${erro}</p>`).join('');
     } else {
         return true;
     }
 }
-export function ErrorRecrudador(erros)
-{
+export function ErrorRecrudador(erros) {
     const divErro = document.getElementById("erros-vazios-recrutador");
 
-     //pego os erros
+    //pego os erros
     if (erros) {
         divErro.innerHTML = erros.map(erro => `<p>${erro}</p>`).join('');
     } else {
@@ -154,77 +150,82 @@ export function ErrorRecrudador(erros)
 
 
 
-export function urlMaster()
-{
-    let protocol, host,url;
- 
+export function urlMaster() {
+    let protocol, host, url;
+
     protocol = window.location.protocol;
     host = window.location.host;
-    url = protocol + '//'+ host; 
+    url = protocol + '//' + host;
 
-return url;
+    return url;
 
 
-} 
+}
 
-export function montarmsg(dados)
-{ 
+export function montarmsg(dados) {
+
+    const msg = document.getElementById('msg');
+    msg.innerHTML = dados;
+}
+
+export function token() {
+    const niveId = document.getElementById('id-user');
+    const niveidlUser = niveId.dataset.id; 
     
-           const msg = document.getElementById('msg');
-            msg.innerHTML = dados;
-}
+    const dados = {
+        id: niveidlUser
+    }
 
- export  function token()
+
+    const convert = JSON.stringify(dados);
+
+    return new Promise((resolve, reject) => {
+
+                $.ajax({
+                    url: '/api/LoginsControl', // A URL onde os dados serão enviados
+                    type: 'post',
+                    dataType: 'json',
+                    data: convert, // Dados do formulário
+                    headers: {
+                        'X-CSRF-TOKEN': pushToken(),
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json', // Enviar o token CSRF
+                    },
+                    success: async function (response) {
+
+
+                        
+                        if (response.Status == 2) {
+                        
+                            console.log(response.token);
+                            
+                             resolve(response.token);
+
+                        
+                        } else {
+
+                            reject('falha em consultar');
+                        }
+
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Erro ao enviar:', error);
+                    }
+
+                });
+          });
+   }
+
+         
+export function pushModelo(dados)
 {
-const niveId = document.getElementById('id-user');
-const niveidlUser = niveId.dataset.id;
-console.log(niveidlUser);
+    let selecionados = [];
 
-const dados ={
-    id: niveidlUser
-}
+dados.forEach((checkbox) => {
+    selecionados.push(checkbox.value);
 
-const convert = JSON.stringify(dados);
+});
 
+return selecionados;
 
-      $.ajax({
-        url: '/api/Tokens', // A URL onde os dados serão enviados
-        type: 'post',
-        dataType: 'json',
-        data: convert, // Dados do formulário
-        headers: {
-            'X-CSRF-TOKEN': pushToken(),
-             'Content-Type': 'application/json',
-             'Accept': 'application/json', // Enviar o token CSRF
-        },
-        success: async function (response) {
-
-            
-            if (response.Status == 2) {
-
-
-                
-             const dado =  response.data.token;
-  
-              envitoken(dado);
- 
- 
-             return dado;
-            } else {
-
-               return 'falha em consultar'
-
-            }
-
-        },
-        error: function (xhr, status, error) {
-           console.error('Erro ao enviar:', error);
-            }
-
-    });
-}
-
-export function envitoken(t)
-{
-   return t;
 }

@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
      <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet"  href="asset/css/bootstrap.min.css"> 
+    <link rel="stylesheet"  href="asset/css/dataTables.dataTables.css"> 
     <link rel="stylesheet"  href="asset/css/style.css"> <!-- Include the CSS -->
      <title>Vagas</title>
    </head>
@@ -29,8 +30,10 @@
 
                         </a>
                         <input type="hidden" id="id-user" data-id="{{auth()->user()->id}}" value="{{auth()->user()->id}}">
+                        <input type="hidden" id="user-email" data-email="{{auth()->user()->email}}" value="{{auth()->user()->email}}">
                         <input type="hidden" id="nivel-user" data-nivel="{{auth()->user()->nivelUser}}">
-                        <input type="hidden" id="alltoken"/>
+                        <input type="hidden" id="nivel-token" data-token=""  value="">
+                         
                     </li>
                 </ul>
                 @endif
@@ -65,5 +68,6 @@
   <script type="text/javascript" src="asset/js/cdn/jquery-3.7.1.min.js"></script>
   <script type="text/javascript" src="asset/js/cdn/popper.min.js"></script>
   <script type="text/javascript" src="asset/js/cdn/bootstrap.min.js"></script>
+  <script type="text/javascript" src="asset/js/cdn/dataTables.js"></script>
 
 </html>

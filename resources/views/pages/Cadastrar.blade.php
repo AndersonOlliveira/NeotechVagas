@@ -127,6 +127,10 @@
                 <input type="text" class="form-control" id="nome-Completo-recrutador" name="nomeRecurtador">
             </div>
              <div class="mb-3">
+                <label for="nomeEmpresa" class="form-label">Nome Empresa</label>
+                <input type="text" class="form-control" id="nome-empresa" name="nomeEmpresa">
+            </div>
+             <div class="mb-3">
                 <label for="emailInput" class="form-label">E-mail</label>
                 <input type="email" class="form-control" id="email-Input-Recrutador" name="emailRecrutador">
             </div>

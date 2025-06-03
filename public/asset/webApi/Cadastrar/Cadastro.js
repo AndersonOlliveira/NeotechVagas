@@ -176,6 +176,7 @@ async function enviFormulario(nameComplente, email, phone, genero, dataNasc, cit
     formData.append('nivelFormacao', nivelFormacao);
     formData.append('password', senha);
     formData.append('tipo', 0);
+    
 
     try {
        
@@ -243,14 +244,15 @@ document.getElementById("email-Input-Recrutador").addEventListener("input", func
 
 function SubmitRecrutador()
 {
-    let nameComplenteRe, emailRe, phoneRe,senhaRe;
+    let nameComplenteRe, emailRe, phoneRe,senhaRe,empresa;
 
     
     nameComplenteRe = $('#nome-Completo-recrutador').val();
     emailRe = $('#email-Input-Recrutador').val();
     phoneRe = $('#telefone-Input-Recrutador').val();
     senhaRe = $('#passwordRecrutador').val();
-    const errosRecrutador =  validacamposRecrutador(nameComplenteRe, emailRe, phoneRe,senhaRe);
+    empresa = $('#nome-empresa').val();
+    const errosRecrutador =  validacamposRecrutador(nameComplenteRe, emailRe, phoneRe,senhaRe,empresa);
     
      ErrorRecrudador(errosRecrutador);
 
@@ -261,7 +263,8 @@ function SubmitRecrutador()
         email: emailRe,
         phone: phoneRe,
         password: senhaRe,
-        tipo: 1
+        tipo: 1,
+        nempresa:empresa 
        
      }
        const convert = JSON.stringify(dados);
@@ -278,10 +281,11 @@ function SubmitRecrutador()
         },
         success: function (response) {
 
-              console.log(response);
+            
             if (response.Status == 2) {
 
 
+                console.log(response);
              
  
             } else {

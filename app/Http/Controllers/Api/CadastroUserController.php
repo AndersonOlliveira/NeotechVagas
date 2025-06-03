@@ -67,9 +67,8 @@ class CadastroUserController extends Controller
      //para o recrutador
        public function  recruiterCadRecutrador(RecruiterRequest $dados)
       {
-
-           
-          $retorno = User::getUser($dados->email);
+        
+        $retorno = User::getUser($dados->email);
 
         if($retorno){
               
@@ -85,6 +84,7 @@ class CadastroUserController extends Controller
          //aqui vem o id do insert na base
         
               $id = User::getUserInsert($dados);
+
 
               $retono = tb_recruite::getRecruiterInsert($phoneMask,$dados,$id);
 

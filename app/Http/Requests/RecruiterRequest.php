@@ -24,6 +24,7 @@ class RecruiterRequest extends FormRequest
         return [
 
             'nome' => 'required|string',
+            'nempresa'=> 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
             'password' => 'required|string'
@@ -33,7 +34,9 @@ class RecruiterRequest extends FormRequest
    {
    
     return [
+       
        'recruiter.required' => 'O nome e obrigatorio',
+       'nempresa.required' => 'O Nome Empresa e obrigatorio',
        'email.required' => 'O email é obrigatório.',
        'email.email' => 'Informe um email válido.',
        'password.required' => 'A senha é obrigatória.',
