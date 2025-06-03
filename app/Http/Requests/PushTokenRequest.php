@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class PushTokenRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,20 +22,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // '_token' => 'required|string',
-            'passwordLogin' => 'required|string',
-            'email' => 'required|email',
+             'id' => 'required|int'
         ];
     }
-    
-   public function messages()
-   {
-   
-    return [
-       'email.required' => 'O email é obrigatório.',
-       'email.email' => 'Informe um email válido.',
-       'passwordLogin.required' => 'A senha é obrigatória.',
-       'passwordLogin.min' => 'A senha deve ter no mínimo 8 caracteres.',
-   ];
-}
 }

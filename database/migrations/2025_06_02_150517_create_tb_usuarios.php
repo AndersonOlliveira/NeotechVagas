@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('personal_access_tokens', function (Blueprint $table) {
+        Schema::create('tb_usuarios', function (Blueprint $table) {
             $table->id();
-            $table->morphs('tokenable');
+            $table->integer('idUser');
             $table->string('name');
-            $table->string('token', 64)->unique();
-            $table->text('abilities')->nullable();
-            $table->timestamp('last_used_at')->nullable();
-            $table->timestamp('expires_at')->nullable();
+            $table->bigInteger('phone');
+            $table->integer('genero');
+            $table->integer('idFomacao');
+            $table->string('nameCurso');
+            $table->string('cv');
+            $table->string('estado',3);
+            $table->string('cidade',55);
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('personal_access_tokens');
+        Schema::dropIfExists('tb_usuarios');
     }
 };

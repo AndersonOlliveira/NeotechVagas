@@ -17,5 +17,15 @@ class routesControllers extends Controller
         return view('pages.home');
 
     }
+     public function Login()
+    {
+        return view('pages.login');
+
+    }
+      public function Cad()
+    {
+        return view('pages.Cadastrar');
+
+    }
     
 }
