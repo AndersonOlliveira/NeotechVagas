@@ -8,41 +8,91 @@ use Illuminate\Support\Facades\Storage;
 
 class FuncitionController extends Controller
 {
-     public function removeMask($tel)
+    public function removeMask($tel)
+    {
+        $result = preg_replace('/\D/', '', $tel);
+
+        return $result;
+    }
+
+
+    public function saveCv($file, $name, $id)
+    {
+
+        $folderPath = storage_path('app/public/Curriculos/' . $id);
+
+
+        if (!file_exists($folderPath)) {
+            mkdir($folderPath, 0777, true);
+        }
+        // Define o nome do arquivo
+
+        $fileName = 'currículo_'  . $name . '.' . $file->getClientOriginalExtension();
+
+        // Salvar o arquivo separado por pasta por email enviado
+
+        if (Storage::putFileAs("public/Curriculos/$id/", $file, $fileName)) {
+
+            return $fileName;
+        } else {
+
+            return false;
+        }
+    }
+
+    public function maskPhone($number)
+    {
+        $str = (string) $number;
+        $ddd = substr($str, 0, 2);
+        $firstPart = substr($str, 2, 5);
+        $secondPart = substr($str, 7, 4);
+        return "($ddd) $firstPart-$secondPart";
+    }
+
+    public function functionGenero($valor)
+    {
+
+        $generos = [
+            0 => 'Feminino',
+            1 => 'Masculino',
+            2 => 'Outro',
+            3 => 'Prefiro não informar',
+        ];
+
+
+        $descricaoGenero = $generos[$valor] ?? 'Desconhecido';
+
+        return $descricaoGenero;
+    }
+    
+     public function functionFormacao($formacoes)
      {
-         $result = preg_replace('/\D/', '', $tel);
-         
-         return $result;
+        
+        $idFormacoes = [
+       
+            1 => 'Ensino Médio',
+            2 => 'Graduação',
+            3 => 'Pós-graduação',
+        ];
+
+
+        $descricaoFormacao = $idFormacoes[$formacoes] ?? 'Desconhecido';
+
+        return $descricaoFormacao;
      }
-
-
-     public function saveCv($file,$name,$id)
+     public function functionNivel($idNivel)
      {
-                
-         $folderPath = storage_path('app/public/Curriculos/' . $id);
+        
+        $niveis = [
+       
+            0 => 'Canditado',
+            1 => 'Recrutador',
+            2 => 'Administrador',
+        ];
 
 
-            if (!file_exists($folderPath)) {
-                mkdir($folderPath, 0777, true);
-            }
-            // Define o nome do arquivo
+        $infoNivel = $niveis[$idNivel] ?? 'Desconhecido';
 
-            $fileName = 'currículo_'  . $name . '.' . $file->getClientOriginalExtension();
- 
-            // Salvar o arquivo separado por pasta por email enviado
-          
-             if(Storage::putFileAs("public/Curriculos/$id/", $file, $fileName)){
-
-                return $fileName;
-
-             }else{
-
-                return false;
-             }
-           
-          
-
-            
-
+        return $infoNivel;
      }
 }

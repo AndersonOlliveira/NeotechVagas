@@ -118,4 +118,24 @@ class User extends Authenticatable
              return $result[0];
 
        }
+
+
+
+       public static function getUsersListall()
+       { 
+        
+         $retorno = DB::table('Users as user')
+         ->leftJoin('tb_usuarios as canditados', 'canditados.idUser'  ,'=', 'user.id')
+         ->leftJoin('tb_recruiter as recruiter', 'recruiter.idUserRecruiter'  ,'=', 'user.id')
+         ->select(
+            'recruiter.*',
+            'user.name',
+            'user.id as idUsers',
+            'user.email',
+            'user.nivelUser',
+            'canditados.*'
+         )->get();
+          
+         return $retorno;
+       }
 }

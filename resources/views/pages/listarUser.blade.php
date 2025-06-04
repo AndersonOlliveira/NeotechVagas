@@ -4,7 +4,7 @@
 
 <div class="container-fluid" id="cards">
 
-<table id="example" class="display">
+<table id="listar-users" class="display">
         <thead>
             <tr>
                 <th>id</th>
@@ -14,10 +14,17 @@
                 <th>Telefone</th>
                 <th>gênero</th>
                 <th>Formaçâo</th>
+                <th>Curso Complementares</th>
                 <th>Cidade Estado</th>
+                <th>Curriculo</th>
+                <th>Curriculo</th>
+                <th>Curriculo</th>
                 <th>Curriculo</th>
             </tr>
         </thead>
+         <tbody>
+
+    </tbody>
 </table>
 
 
