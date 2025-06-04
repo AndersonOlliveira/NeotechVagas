@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class tb_empresa_vaga extends Model
 {
-    
+    use  SoftDeletes;
     protected $table = 'tb_empresa_vaga';
     
     public static function getidVaga($id)

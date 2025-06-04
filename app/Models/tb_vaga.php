@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\tb_empresa;
 
 class tb_vaga extends Model
 {
+    use SoftDeletes;
     protected $table = 'tb_vagas';
 
 

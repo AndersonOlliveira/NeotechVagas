@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class FuncitionController extends Controller
 {
@@ -94,5 +95,26 @@ class FuncitionController extends Controller
         $infoNivel = $niveis[$idNivel] ?? 'Desconhecido';
 
         return $infoNivel;
+     }
+
+     public function functionAtivo($dados)
+     {
+ 
+          if(!isset($dados)){
+
+            $infos = 'Ativo';
+          }else{
+             $infos = 'Inativo';
+          }
+
+         return $infos;
+     }
+
+
+     public  function finduser()
+     {
+          $user = Auth::user();
+
+          return $user;
      }
 }

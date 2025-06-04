@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class routesControllers extends Controller
 {
@@ -31,6 +32,17 @@ class routesControllers extends Controller
     {
         return view('pages.ListarUser');
 
+    }
+
+
+    public function testeRedir()
+    {
+ 
+         $redis = Redis::connection('default');
+
+         //para amanha salvar o token aqui e rucuperar para usar
+         $redis->set('username', 'Anderson');
+         return $redis->get('username');
     }
     
 }

@@ -42,7 +42,7 @@ class LoginController extends Controller
 
         }catch (Expectation $e){
             
-                response()->json(['Status' => false,'message' => 'Falha em deslogar'],400);
+                response()->json(['Status' => false,'message' => 'Falha em deslogar ' .$e],400);
         }
         
     }

@@ -27,4 +27,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     
     Route::post('/Allvagasid', [VagasController::class, 'ListVagasid'])->name('listvagas');
 
+     Route::post('/Deletar', [ListUsersController::class, 'dell'])->name('DeletarUser');
+
+     Route::post('/AtivarUser', [ListUsersController::class, 'ative'])->name('AtivarUser');
+
 });

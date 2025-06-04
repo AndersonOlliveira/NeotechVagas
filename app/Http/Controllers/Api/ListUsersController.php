@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\DelRequest;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Http\Controllers\api\LoginController;
+use App\Http\Requests\AtivarUserRequest;
 
 class ListUsersController extends Controller
 {
-    public function storeUsers() : JsonResponse
+    public function storeUsers(DelRequest $dadoRequest) : JsonResponse
     {
 
         $lista = [];
@@ -19,7 +23,7 @@ class ListUsersController extends Controller
 
 
 
-     $retorno = User::getUsersListall();
+     $retorno = User::getUsersListall($dadoRequest);
      $estadosIBGE = Http::get("https://servicodados.ibge.gov.br/api/v1/localidades/estados");
    
        if (!$estadosIBGE->successful()) {
@@ -49,7 +53,7 @@ class ListUsersController extends Controller
                 $municipio = $municipioResponse->json();
                 $item->cidade = $municipio['nome'] ?? '*';
             } else {
-                $item->cidade = '*';
+                $item->cidade = 'Sem informaçáo';
             }
         }
             
@@ -69,6 +73,10 @@ class ListUsersController extends Controller
           if($campo == 'nivelUser' && is_numeric($valor)){
             $infoNivel = $dados->functionNivel($valor);
              $item->nivelUser = $infoNivel;
+         }
+         if($campo == 'info'){
+              $infos = $dados->functionAtivo($valor);
+             $item->info = $infos;
          }
          
     }
@@ -92,5 +100,60 @@ class ListUsersController extends Controller
     }
     
 
+     public function dell(DelRequest $dados)
+     { 
+           $verificar = new FuncitionController();
+            //verifico se esta logado, por mas que tenha o token
+
+              $user = $verificar->finduser();
+           
+               if(!isset($user->nivelUser) || $user->nivelUser != 2){
+
+                   return response()->json(['erro' => 'Não foi possivel Deletar Usuario'], 500);
+              }
+         
+              //realizar o delete
+         
+           $up = User::getUserId($dados->id);
+           
+            if($up->nivelUser == 2 ){
+           
+              $result = User::delleteUserAdm($dados->id);
+               //limpo se tiver um token existente
+               User::clearToken($dados->id);
+               
+              }else{
+
+          }
+            
+        dd($result);
+ }
+     
+     public function ative(AtivarUserRequest $request) : JsonResponse
+     {
+            
+           $verificar = new FuncitionController();
+            //verifico se esta logado, por mas que tenha o token
+            $user = $verificar->finduser();
+
+               //remover date
+                if(!isset($user->nivelUser) || $user->nivelUser != 2){
+
+                   return response()->json(['erro' => 'Não foi possivel Ativar '], 500);
+              }
+
+                  $reuslt = user::getUpUsers($request);
+
+                   if($reuslt){
+                       
+             return response()->json(['Status' => 2, 'menssage' => 'Sucesso em consultar Lista'], 200);
+         
+         } else {
+
+            return response()->json(['Status' => 0, 'menssage' => 'Falha ao Solicitar Lista'], 500);
+        }
+     
+          return response()->json(['Status' => 0, 'menssage' => 'Consulte o Administrador do Sistema'], 500);
+     }
     
 }

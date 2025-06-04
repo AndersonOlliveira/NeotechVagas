@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,12 +12,15 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use PhpParser\Node\Stmt\Catch_;
 use PhpParser\Node\Stmt\Static_;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Redis;
 
 class User extends Authenticatable
 {
-    use  HasApiTokens, HasFactory, Notifiable;
+    use  SoftDeletes, HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -91,11 +96,9 @@ class User extends Authenticatable
          }
 
     }
-       public static function getToken($id)
+       public static function clearToken($id)
        {
-          $tokens = PersonalAccessToken::where('tokenable_id', $id)
-        ->get();   
-        return $tokens->isEmpty() ? false : true; 
+        return PersonalAccessToken::where('tokenable_id', $id)->delete();
        }
      
        public static function getAllUser($dados)
@@ -112,30 +115,62 @@ class User extends Authenticatable
 
        public static function getUserId($dados)
        { 
-                extract($dados->all());
-             $result =  DB::table('users')->where('id', $id)->select('email','password')->get();
+              
+             $result =  DB::table('users')->where('id', $dados)->select('nivelUser', 'id')->get();
 
              return $result[0];
 
        }
-
-
-
-       public static function getUsersListall()
+        public static function getUsersListall($dados)
        { 
+         
+        ///náo exibi o id do user logado
         
          $retorno = DB::table('Users as user')
          ->leftJoin('tb_usuarios as canditados', 'canditados.idUser'  ,'=', 'user.id')
          ->leftJoin('tb_recruiter as recruiter', 'recruiter.idUserRecruiter'  ,'=', 'user.id')
          ->select(
             'recruiter.*',
-            'user.name',
+            'user.name as nomes',
             'user.id as idUsers',
             'user.email',
             'user.nivelUser',
+            'user.deleted_at as info',
             'canditados.*'
-         )->get();
+         )->where('user.id', '<>' ,$dados->id)
+         ->get();
           
          return $retorno;
+       }
+
+       public static function delleteUserAdm($id)
+       {
+               //salvo no redis quando o user foi deletado
+         $redis = Redis::connection('default');
+
+         //para amanha salvar o token aqui e rucuperar para usar
+         $json = ['id' => $id, 'dia' => Carbon::now(), 'deletadoPor', Auth::user() ];
+         $redis->set('deletado user', json_encode($json));
+          
+         $retorno = DB::table('users')->where('id', $id)
+           ->update(['deleted_at' => Carbon::now()]);
+         return $retorno;
+         
+       }
+
+       public static function getUpUsers($dados)
+       {
+           extract($dados->all());
+         $redis = Redis::connection('default');
+         $json = ['id' => $id, 'dia' => Carbon::now(), 'Ativado', Auth::user() ];
+         
+         $redis->set('deletado_user', json_encode($json));
+        
+         $retorno = DB::table('users')->where('id', $id)
+        
+            ->update(['deleted_at' => null]);
+        
+          return $retorno;
+
        }
 }

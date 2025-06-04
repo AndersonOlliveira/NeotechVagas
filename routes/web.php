@@ -13,9 +13,14 @@ Route::middleware(['web'])->group(function () {
     Route::post('/Home', [LoginController::class, 'processLogin'])->name('LoginProcess');
     // Route::post('/Cadastro', [LoginController::class, 'processCad'])->name('CadProcess');
     Route::get('/Destroy', [LoginController::class, 'processDestroy'])->name('Destroy');
+
+
+    Route::get('/redis',[routesControllers::class,'testeRedir'])->name('testeRedis');
 });
 
 Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/Home', [routesControllers::class, 'Homes'])->name('home');
     Route::get('/Listar', [routesControllers::class, 'List'])->name('ListarUsers');
+   
+
 });
