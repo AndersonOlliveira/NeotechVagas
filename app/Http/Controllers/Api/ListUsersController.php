@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redis;
 use App\Http\Controllers\api\LoginController;
 use App\Http\Requests\AtivarUserRequest;
+use Carbon\Carbon;
 use App\Http\Requests\EditCandiRequest;
 use App\Http\Requests\EditRequest;
 use App\Http\Requests\RecruiterRequest;
@@ -336,7 +338,30 @@ class ListUsersController extends Controller
    
      public function NewCurriculo(FormRequest $request) : JsonResponse 
      {
-       dd($request);
+                  $newDados = new FuncitionController();
+
+         if(!$request->hasFile('arquivoCv')){
+           
+               return response()->json(['Status' => 0, 'menssage' => 'Verifique o Arquivo Enviado'], 500);
+           }
+
+
+              $redis = Redis::connection('default');
+              $json = ['id' => $request->id, 'dia' => Carbon::now(), 'Ativado', Auth::user() ];
+         
+         $redis->set('atualiado_curriculo_user', json_encode($json));
+        
+            $filename =  $newDados->saveCv($request->arquivoCv, $request->nome,$request->id);
+
+          if ($filename) {
+
+            return response()->json(['Status' => 2,   'menssage' => 'Sucesso em Atualizar'], 200);
+        } else {
+
+            return response()->json(['Status' => 0, 'menssage' => 'Falha em Atualizar '], 500);
+        }
+ 
+             
          return response()->json(['Status' => 0, 'menssage' => 'Contate o Administrador '], 500);
      }
 }

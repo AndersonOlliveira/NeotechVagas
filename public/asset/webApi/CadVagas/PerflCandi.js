@@ -221,9 +221,10 @@ async function editCandi()
     const file = files[0];
 
     formData.append('arquivoCv', file, file.name);
+    formData.append('nome', $('#nome-edit-candi').val());
+    formData.append('id', id);
 
-      const valueToken = await token();
- 
+       const valueToken = await token();
 
         try {
            
@@ -233,8 +234,7 @@ async function editCandi()
                 headers: {
             'Authorization': 'Bearer ' + valueToken,
             'X-CSRF-TOKEN': pushToken(),
-            'Content-Type': 'application/json',
-            'Accept': 'application/json', // Enviar o token CSRF
+             'Accept': 'application/json', // Enviar o token CSRF
                 },
             });
     
