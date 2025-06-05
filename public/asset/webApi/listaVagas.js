@@ -44,7 +44,7 @@ function aplicarFiltros() {
 //para paginacao
 function renderizarControlesPaginacao(totalVagas) {
     const totalPaginas = Math.ceil(totalVagas / vagasPorPagina);
-     console.log(todasVagas);
+  
     const container = document.getElementById('paginacao');
     container.innerHTML = '';
 

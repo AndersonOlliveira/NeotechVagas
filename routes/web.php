@@ -22,6 +22,7 @@ Route::middleware(['web'])->group(function () {
     Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/Home', [routesControllers::class, 'Homes'])->name('home');
     Route::get('/Listar', [routesControllers::class, 'List'])->name('ListarUsers');
+    Route::get('/Temperatura', [routesControllers::class, 'Tem'])->name('ListarTemp');
    
 
 });

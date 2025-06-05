@@ -55,7 +55,8 @@ async function buscaUser(dados, infoNivel) {
 
         },
         error: function (xhr, status, error) {
-            console.log(xhr);
+          
+          
             console.error('Erro ao enviar:', error);
         }
 
@@ -66,7 +67,7 @@ function montarDados(dados) {
     let dadosEdit = dados;
 
     $.each(dadosEdit, function (index, valores) {
-        console.log(valores['idUserRecruiter']);
+       
         $('#nome-Completo-recrutador-edit').val(valores['name']);
         $('#nome-empresa-edit').val(valores['nome_empresa']);
         $('#email-Input-Recrutador-edit').val(valores['email']);
@@ -123,7 +124,7 @@ async function SubmitEdit() {
     phoneRe = $('#telefone-Input-Recrutador-edit').val();
     idUser = $('#id-user').val();
 
-    const errosRecrutador = validacamposRecrutador(nameComplenteRe, emailRe, phoneRe, senhaRe, empresa);
+    const errosRecrutador = validacamposRecrutador(nameComplenteRe, emailRe, phoneRe,empresa);
 
     ErrorRecrudador(errosRecrutador);
 
@@ -140,10 +141,6 @@ async function SubmitEdit() {
     const convert = JSON.stringify(dados);
   
     const valueToken = await token();
- 
-
-    console.log(convert);
-
     
     $.ajax({
         url: 'api/EditUser ',
@@ -161,18 +158,18 @@ async function SubmitEdit() {
             if (response.Status == 2) {
 
         
-                swal(response.message);
+                swal(response.menssage);
 
             } else {
 
 
-                swal(response.message);
+                swal(response.menssage);
 
             }
 
         },
         error: function (xhr, status, error) {
-            console.log(xhr);
+            
             console.error('Erro ao enviar:', error);
         }
 

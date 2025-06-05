@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CandidacyRequest;
+use App\Http\Requests\PauseVancyRequest;
 use App\Http\Requests\VagasRequest;
 use App\Models\tb_empresa;
 use App\Models\tb_empresa_vaga;
@@ -135,4 +136,89 @@ class VagasController extends Controller
         return response()->json(['Status' => 0, 'menssage' => 'Consulte o Administrador do Sistema'], 500);
 
      }
+
+ 
+      public function FuncoesVagas(PauseVancyRequest $request) :JsonResponse
+       {
+
+               $verificar = new FuncitionController();
+            //verifico se esta logado, por mas que tenha o token 
+             $user = $verificar->finduser();
+
+             
+
+             //pego para deletar 
+             if(isset($request->funcao)){
+                
+               $retorno = tb_vaga::DeleteVaga($request);
+
+               if($retorno){
+               
+               return response()->json(['Status' => 2, 'menssage' => 'Sucesso em Ativar Vaga'], 200);
+         
+         } else {
+
+            return response()->json(['Status' => 0, 'menssage' => 'Falha em Ativar Vaga'], 500);
+        }
+     }//fechamento do isset
+
+           
+             $retornoFechamento = tb_vaga::findFechamento($request);
+
+          
+
+             if(!$retornoFechamento){
+                $result = tb_vaga::pausesVancy($request);
+              
+                   if($result > 0){
+                
+               return response()->json(['Status' => 2, 'menssage' => 'Sucesso em Pausar Vaga'], 200);
+         
+         } else {
+
+            return response()->json(['Status' => 0, 'menssage' => 'Falha em Pausa Vaga'], 500);
+        }
+    }
+    
+    //faco ativacao
+
+    if($retornoFechamento){
+           
+          $result = tb_vaga::AtiveVaga($request);
+              
+                   if($result > 0){
+                
+               return response()->json(['Status' => 2, 'menssage' => 'Sucesso em Ativar Vaga'], 200);
+         
+         } else {
+
+            return response()->json(['Status' => 0, 'menssage' => 'Falha em Ativar Vaga'], 500);
+        }
+       
+    }
+             return response()->json(['Status' => 0, 'menssage' => 'Consulte o Administrador do Sistema'], 500);
+      }
+
+      public function EditVancncie(VagasRequest $request) :JsonResponse
+       {
+
+             $verificar = new FuncitionController();
+            //verifico se esta logado, por mas que tenha o token 
+             $user = $verificar->finduser();
+
+              $resultEdite = tb_vaga::upVacancy($request);
+              
+            if($resultEdite){
+                
+               
+               return response()->json(['Status' => 2, 'menssage' => 'Sucesso em Atualizar Vaga'], 200);
+         
+         } else {
+
+            return response()->json(['Status' => 0, 'menssage' => 'Falha em Atualizar Vaga'], 500);
+        }
+
+          return response()->json(['Status' => 0, 'menssage' => 'Consulte o Administrador do Sistema'], 500);
+      }
+
 }

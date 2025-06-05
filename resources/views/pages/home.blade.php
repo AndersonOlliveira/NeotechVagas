@@ -11,45 +11,58 @@
 
     <div class="p-2 bd-highlight" id="perfil-edite"></div>
 
+    <div class="p-2 bd-highlight" id="edite-vagas"></div>
+
     <div class="p-2 bd-highlight" id="perfil-edite-candidacy"></div>
-
+    
+    <div  class="d-flex flex-row-reverse" id="ocult-candidato">
+    <div class="p-2 bd-highlight" id="impor-cv">
+      <div class="p-2">
+     <form id="cv-import">
+        <div class="mb-3">
+                <label for="arquivoInput" class="form-label">Anexar Arquivo (.csv)</label>
+                <input type="file" class="form-control" id="arquivo-Input" name="arquivoEnv" accept=".csv">
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+         </form>
+        
+      </div>
+      <div class="p-2" id='temperauras'>  <button class="btn btn-dark">Exibir Resultado</button></div>
+    </div>
+    <div class="p-2 bd-highlight" id="list-vagas-cad"></div>
+ </div>
   </div>
-
-  <p>VOU CRIAR UMA LISTA DAS VAGAS PARA QUE ME CRIOU </p>
-
-  <div class="p-2 bd-highlight" id="list-vagas-cad"></div>
-
   <div id="tabelaRecrutador">
-<input type="number" id="valorProcura">
-      <div class="table-responsive">
-        <button id="clearFiltro" class="btn btn-info nav-easy nav-color">Limpar Filtro</button>
+  
+  <div class="table-responsive">
+       
 
-        <input type="text" id="searchInput" placeholder="Digite nome ou email..." class="form-control col-m2" />
-  <table class="table" class="table table-bordered border-secundary">
-  <thead>
-    <tr>
-     <th scope="col">Id_Vaga</th>
-              <th scope="col">Nome Empresa</th>
-              <th scope="col">Descrição da Vaga</th>
-              <th scope="col">Tipo trabalho</th>
-              <th scope="col">Local</th>
-              <th scope="col">Data Cadastro vaga</th>
-              <th scope="col">Status Vaga</th>
-              <th scope="col">Candidato Vaga</th>
-              <th scope="col">Telefone Candidato</th>
-              <th scope="col">Fomação</th>
-              <th scope="col">Curso</th>
-              <th scope="col">Estado Cidade</th>
-              <th scope="col">Candidato Vaga</th>
-    </tr>
-  </thead>
-  <tbody id="corpoCandidatos">
-   
-  </tbody>
-</table>
- <div id="paginacao-pickup" class="text-center mt-3"></div>
-  </div>  <!--  <div id="tabelaRecrutador"> -->
-  </div>  <!--  <div id="tabelaRecrutador"> -->
+      <input type="text" id="searchInput" placeholder="Digite nome ou email..." class="form-control col-m2" />
+      <table class="table" class="table table-bordered border-secundary">
+        <thead>
+          <tr>
+            <th scope="col">Id_Vaga</th>
+            <th scope="col">Nome Empresa</th>
+            <th scope="col">Descrição da Vaga</th>
+            <th scope="col">Tipo trabalho</th>
+            <th scope="col">Local</th>
+            <th scope="col">Data Cadastro vaga</th>
+            <th scope="col">Status Vaga</th>
+            <th scope="col">Candidato Vaga</th>
+            <th scope="col">Telefone Candidato</th>
+            <th scope="col">Fomação</th>
+            <th scope="col">Curso</th>
+            <th scope="col">Estado Cidade</th>
+            <th scope="col">Candidato Vaga</th>
+          </tr>
+        </thead>
+        <tbody id="corpoCandidatos">
+
+        </tbody>
+      </table>
+      <div id="paginacao-pickup" class="text-center mt-3"></div>
+    </div> <!--  <div id="tabelaRecrutador"> -->
+  </div> <!--  <div id="tabelaRecrutador"> -->
 
   <!--DIV PARA EDITAR DADOS  -->
   <div class="perfil" id="perfil-edite"></div>
@@ -57,11 +70,11 @@
   <!-- aqui vou listar as vagas deste recrutador -->
   <div id="olcultar">
     <div class="container-fluid" id="cards">
-      <!-- parar para não exibir vagas -->
-
+      <!-- parar para não exibir vagas --> 
+     <div id="ocultar-div">
       <div class="">Vagas Cadastradas: </div>
       <div id="resultado"></div>
-      <input type="number" id="valorProcura">
+     
       <div class="table-responsive">
         <button id="clearFiltro" class="btn btn-info nav-easy nav-color">Limpar Filtro</button>
 
@@ -86,6 +99,7 @@
       </div>
       <div id="paginacao-candidacy" class="text-center mt-3"></div>
     </div> <!-- <div class="container-fluid" id="cards">-->
+    </div>
     <!-- exibo as vagas -->
     <div class="container-fluid" id="cards">
 
@@ -157,9 +171,7 @@
           </div>
           <div class="modal-body">
             <div class="container mt-4">
-              <form id="form-vaga" method="POST">
-                @csrf
-
+              <form id="vaga-form" method="POST">
                 <h4 class="mb-4">Cadastro de Vaga</h4>
 
                 <div class="mb-3">
@@ -231,6 +243,9 @@
         </div>
       </div>
     </div>
+
+
+
     <!-- modal para o perfil -->
     <div class="modal fade" id="modalEdite" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalEdite" aria-hidden="true">
       <div class="modal-dialog">
@@ -269,6 +284,88 @@
           </div>
         </div>
       </div>
+    </div>
+
+
+
+     <!-- modal pra editar Vagas -->
+      <div class="modal fade" id="modalVagasEdit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="modalVagasEdit" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalVagasEdit">Modal title</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+ <form id="form-vaga-edit" method="POST">
+                @csrf
+
+                <h4 class="mb-4">Cadastro de Vaga</h4>
+
+                <div class="mb-3">
+                  <label for="titulo" class="form-label">Título da Vaga</label>
+                  <input type="text" class="form-control" id="titulo-edit" name="titulo">
+                  <input type="hidden" class="form-control" id="id-edit" name="idvaga">
+                </div>
+
+                <div class="mb-3">
+                  <label for="descricao" class="form-label">Descrição da Vaga</label>
+                  <textarea class="form-control" id="descricao-edit" name="descricao" rows="4"></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label for="tipoContrato" class="form-label">Tipo de Contrato</label>
+                  <select class="form-select" id="tipoContrato-edit" name="tipoContrato">
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="clt">CLT</option>
+                    <option value="pj">PJ</option>
+                    <option value="freelancer">Freelancer</option>
+                    <option value="estagio">Estágio</option>
+                    <option value="temporario">Temporário</option>
+                    <option value="CLT/PJ">CLT OU PJ </option>
+                  </select>
+                </div>
+
+                <div class="mb-3">
+                  <label for="local" class="form-label">Local da Vaga</label>
+                  <input type="text" class="form-control" id="local-edit" name="local">
+                </div>
+
+                <div class="mb-3">
+                  <label for="requisitos" class="form-label">Modelo Vaga</label>
+                  <input type="text" class="form-control" id="modelo-edit" name="modelao_vaga" rows="3"></input>
+                </div>
+
+                <div class="mb-3">
+                  <label for="salario" class="form-label">Salário (R$)</label>
+                  <input type="number" class="form-control" id="salario-edit" name="salario" min="0" step="0.01">
+                </div>
+
+                <div class="mb-3">
+                  <label for="requisitos" class="form-label">Requisitos</label>
+                  <textarea class="form-control" id="requisitos-edit" name="requisitos" rows="3"></textarea>
+                </div>
+
+                <div class="mb-3">
+                  <label for="beneficios" class="form-label">Benefícios</label>
+                  <textarea class="form-control" id="beneficios-edit" name="beneficios" rows="3"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-success">Atualizar Vaga</button>
+              </form>
+            </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+    
+      </div>
+    </div>
+  </div>
+</div>
     </div>
 
     <script type="module" src="{{ asset('asset/webApi/Controller/controller.js')}}"></script>

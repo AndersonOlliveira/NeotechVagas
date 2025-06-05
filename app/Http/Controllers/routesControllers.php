@@ -38,16 +38,9 @@ class routesControllers extends Controller
     {
         return view('pages.Perfil');
     }
-
-
-    public function testeRedir()
+    public function Tem()
     {
- 
-         $redis = Redis::connection('default');
-
-         //para amanha salvar o token aqui e rucuperar para usar
-         $redis->set('username', 'Anderson');
-         return $redis->get('username');
+        return view('pages.Temperatura');
     }
     
 }

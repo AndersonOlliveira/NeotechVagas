@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\api\ArquivosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\CadastroUserController;
 use App\Http\Controllers\api\ListUsersController;
+use App\Http\Controllers\api\TemperaturaController;
 use App\Http\Controllers\api\VagasController;
 
 //Rota para trazer as vagas 
@@ -50,5 +52,16 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
      Route::post('/NewCv', [ListUsersController::class, 'NewCurriculo'])->name('CvNew');
 
      Route::post('/PickUpCandidates', [ListUsersController::class, 'PickUp'])->name('Up');
+
+     Route::post('/FuncoesVagas', [VagasController::class, 'FuncoesVagas'])->name('break');
+    
+     Route::post('/EditVacancies', [VagasController::class, 'EditVancncie'])->name('EditVacancies');
+     
+     Route::post('/Arquivos', [ArquivosController::class, 'file'])->name('files');
+    
+     Route::post('/Temperatura', [TemperaturaController::class, 'retornoTemp'])->name('temp');
+
+
+
 
 });

@@ -5,8 +5,11 @@ const nivelUser = nivelUsers.dataset.nivel;
 const id = $('#id-user').val();
 
 if(nivelUser == 0 ){
- const recruitadpr  = document.getElementById('tabelaRecrutador');
-   recruitadpr.style.display = 'none'; 
+ const recrutador  = document.getElementById('tabelaRecrutador');
+   recrutador.style.display = 'none';
+  
+   const recru  = document.getElementById('ocult-candidato');
+   recru.style.display = 'none'; 
 
 
  document.addEventListener('DOMContentLoaded', function () {
@@ -54,7 +57,7 @@ function aplicarFiltros() {
 //para paginacao
 function renderizarControlesPaginacao(totalVagas) {
     const totalPaginas = Math.ceil(totalVagas / vagasPorPagina);
-     console.log(todasVagas);
+  
     const container = document.getElementById('paginacao');
     container.innerHTML = '';
 
@@ -339,7 +342,7 @@ function polupaTable(data, pagina = 1) {
                 </div>  `
                  :
                   `
-         <div class="p-2 bd-highlight"></div>
+         <div class="p-2 bd-highlight">Fechada</div>
     </td>
 </tr>
 `}`; 

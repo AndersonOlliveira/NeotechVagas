@@ -29,7 +29,12 @@ class VagasRequest extends FormRequest
         'salario'      => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'], 
         'requisitos'   => 'required|string',
         'beneficios'   => 'required|string',
-        'modeloTra'   =>  'required|array',
+        'modeloTra' => ['required', function ($attribute, $result, $fail) {
+            if (!is_array($result) && !is_string($result)) {
+                $fail('O campo modeloTra deve ser uma string ou um array.');
+            }
+             }],
+        'id'   =>  'nullable|int',
           
         ];
     }

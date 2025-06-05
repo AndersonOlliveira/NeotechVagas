@@ -24,12 +24,15 @@ class tb_empresa_vaga extends Model
          'tbvagas.local',
          'tbvagas.requisitos',
          'tbvagas.modelo_vaga',
-         'tbvagas.fechamento_vaga',
+         'tbvagas.fechamento_vaga  as infoVaga',
          'tbvagas.salario',
          'tbvagas.beneficios',
          'tbvagas.created_at',
          'rc.nome_empresa',
-         )->where('vagasEmp.id_empresa',  '=', $id )->get();
+         'tbvagas.id',
+         'tbvagas.deleted_at',
+         )->where('vagasEmp.id_empresa',  '=', $id )
+         ->whereNull('tbvagas.deleted_at')->get();
 
 
 
@@ -55,7 +58,7 @@ class tb_empresa_vaga extends Model
          'tbvagas.created_at',
          'rc.nome_empresa',
          'tbvagas.id'
-         )->get();
+         )->whereNull('tbvagas.deleted_at')->get();
         
           return $retornoVagas;
 

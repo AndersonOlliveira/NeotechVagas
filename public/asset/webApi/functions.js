@@ -10,7 +10,7 @@ export function pushToken() {
 
 
 function validarCampo(campo, nomeCampo) {
-    if (campo == '' || campo == null || campo != 0) {
+    if (campo == '' || campo == null ) {
         return `Campo ${nomeCampo} não pode ser vazio.`;
 
     }
@@ -212,7 +212,7 @@ export function token() {
                         
                         if (response.Status == 2) {
                         
-                            console.log(response.token);
+                          
                             
                              resolve(response.token);
 
@@ -244,3 +244,45 @@ dados.forEach((checkbox) => {
 return selecionados;
 
 }
+
+export function criarBotoesPaginacao(totalItens, paginaAtual) {
+        const totalPaginas = Math.ceil(totalItens / qtpagain);
+        let divPaginacao = document.getElementById('paginacao-pickup');
+        divPaginacao.innerHTML = '';
+
+        for (let i = 1; i <= totalPaginas; i++) {
+            const btn = document.createElement('button');
+            btn.innerText = i;
+            btn.className = 'btn btn-sm btn-outline-primary mx-1';
+            if (i == paginaAtual) {
+                btn.classList.add('active');
+            }
+            btn.onclick = () => PickupCandidatos(armazenadados, i);
+            divPaginacao.appendChild(btn);
+        }
+}
+
+export async function Alertas(mensagem,dados) {
+
+   const infos = await swal({
+        title: mensagem,
+        text: "Confirme para prosseguir com a " + dados,
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+      
+     if (infos) { 
+          await swal( dados + "  Enviada com sucesso!", {
+                icon: "success",
+            });
+            return true;
+        } else {
+            swal("Ação cancelada.");
+            return false;
+        }
+}
+
+
+
+

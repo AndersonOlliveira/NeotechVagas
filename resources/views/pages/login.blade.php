@@ -38,10 +38,7 @@
             <!-- Botão de envio -->
             <input name="sendLogin" type="submit" class="btn btn-lg btn-info btn-block w-100 mb-2" value="Entrar">
 
-            <!-- Link para recuperar senha -->
-            <div class="text-center">
-              <a href="">Esqueceu a senha?</a>
-            </div>
+           
           </form>
         </div>
       </div>

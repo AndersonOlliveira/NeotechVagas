@@ -17,7 +17,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#">Neotech Vagas</a>
+      <a class="navbar-brand" href="#">NeoEstech Vagas</a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
       </ul>
