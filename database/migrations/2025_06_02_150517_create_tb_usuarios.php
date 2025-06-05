@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('tb_usuarios', function (Blueprint $table) {
             $table->id();
-            $table->integer('idUser');
+            $table->bigInteger('idUser')->unique();
             $table->string('name');
             $table->bigInteger('phone');
             $table->integer('genero');

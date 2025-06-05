@@ -116,10 +116,12 @@ export function Estados() {
             if (!estadoId) return;
 
             $('#select-cidade').empty().append('<option value="">Carregando...</option>');
+            $('#select-cidades').empty().append('<option value="">Carregando...</option>');
             $.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoId}/municipios`, function (data) {
                 $('#select-cidade').empty().append('<option value="">Selecione a cidade</option>');
                 $.each(data, function (index, cidade) {
 
+                    $('#select-cidades').append(`<option value="${cidade.nome}">${cidade.nome}</option>`);
                     $('#select-cidade').append(`<option value="${cidade.id}">${cidade.nome}</option>`);
                 });
             });
@@ -169,9 +171,15 @@ export function montarmsg(dados) {
 }
 
 export function token() {
+   
     const niveId = document.getElementById('id-user');
-    const niveidlUser = niveId.dataset.id; 
+   
     
+    if(!niveId){
+
+        return;
+    }
+     const niveidlUser = niveId.dataset.id; 
     const dados = {
         id: niveidlUser
     }

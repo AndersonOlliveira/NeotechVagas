@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Email;
 
 class FuncitionController extends Controller
 {
@@ -117,4 +118,16 @@ class FuncitionController extends Controller
 
           return $user;
      }
+
+     public function verificarEmail($email)
+     {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+             
+             return true;  
+        }else{
+
+            return false;
+        }
+       }
 }
+

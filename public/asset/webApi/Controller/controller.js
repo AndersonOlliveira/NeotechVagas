@@ -1,6 +1,7 @@
 //pegar o nivel e liberar um input para cadastra a vaga
 const nivelUsers = document.getElementById('nivel-user');
 const nivelUser = nivelUsers.dataset.nivel;
+const id = $('#id-user').val();
 
 console.log(nivelUser);
 
@@ -15,6 +16,23 @@ if (nivelUser != 0 && nivelUser != 2) {
     selectElement.setAttribute('data-bs-toggle', 'modal');
     selectElement.setAttribute('data-bs-target', '#modalVagas');
     divModal.appendChild(selectElement);
+   
+     //CRIO BOTÁO PARA EDITAR DADOS
+     const divModalpefil = document.getElementById('perfil-edite');
+    const bottonEdite = document.createElement('button');
+    bottonEdite.className = 'btn btn-primary';
+    bottonEdite.id = 'forms-edit-perfil';
+    bottonEdite.value = id;
+  
+    bottonEdite.innerHTML = 'Meu Perfil';
+
+    // Definindo atributos do Bootstrap para modal
+    bottonEdite.setAttribute('data-bs-toggle', 'modal');
+    bottonEdite.setAttribute('data-bs-target', '#modalEdite');
+    divModalpefil.appendChild(bottonEdite);
+
+
+
 }
 
 if(nivelUser == 2){

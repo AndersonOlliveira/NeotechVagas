@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\api\LoginController;
 use App\Http\Requests\AtivarUserRequest;
+use App\Http\Requests\EditRequest;
+use App\Http\Requests\RecruiterRequest;
+use App\Http\Requests\RecruterEditResquest;
+use App\Models\tb_recruite;
 
 class ListUsersController extends Controller
 {
@@ -155,5 +159,71 @@ class ListUsersController extends Controller
      
           return response()->json(['Status' => 0, 'menssage' => 'Consulte o Administrador do Sistema'], 500);
      }
+
+
+
+     //pegar os dados do usuario 
+     public function allUser(EditRequest $dados)
+     {  
+         //armazeno o resultado
+         $dadosTratado = []; 
+         extract($dados->all());
+        
+         $dados = new FuncitionController();
+           if($nivel == 1){
+             
+              $result  =  tb_recruite::getuser($id);
+          
+            foreach ($result as $item) {
+               foreach ($item as $campo => $valor) {
+
+         if($campo == 'phone' && is_numeric($valor)){
+            $retornoPhones = $dados->maskPhone($valor);
+             $item->phone = $retornoPhones;
+         }
+         
+        
+     }
+      $dadosTratado[] = $item; 
+ }//primeiro foareach 
+          
+          if($dadosTratado){
+            
+             return response()->json(['Status' => 2, 'data' => $dadosTratado, 'menssage' => 'Sucesso em consultar Lista'], 200);
+         
+         } else {
+
+            return response()->json(['Status' => 0, 'menssage' => 'Falha ao Solicitar Lista'], 500);
+        }
+     
+      }//primeiro if   
+        
+     }
     
+
+     public function EditUser(RecruterEditResquest $dados)
+     {
+               $verify = new FuncitionController();
+                 $retornoMask = $verify->removeMask($dados->phone);
+                
+                 $retornoEmail = $verify->verificarEmail($dados->email);
+
+                if(!$retornoEmail){
+                 
+                    return response()->json(['Status' => 2,  'menssage' => 'Verifique o E-mail informado'], 200);
+        
+                }
+                $retorno = tb_recruite::upRecruiter($dados,$retornoMask);
+
+                if($retorno){
+                      return response()->json(['Status' => 2, 'menssage' => 'Sucesso em Atualizar Perfil'], 200);
+             
+               } else {
+
+            return response()->json(['Status' => 0, 'menssage' => 'Falha em Editar Perfil '], 500);
+        }
+
+    }
 }
+
+

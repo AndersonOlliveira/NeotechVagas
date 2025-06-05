@@ -4,8 +4,116 @@
 <!--crio um botao para cadastar as vagas  -->
 
 <div class="container-fluid" id="cards">
-<div class="vagas" id="div-vagas">
-  <div class="modal fade" id="modalVagas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalVagas" aria-hidden="true">
+
+<div class="d-flex flex-row bd-highlight mb-3">
+
+<div class="p-2 bd-highlight" id="div-vagas"></div>
+
+<div class="p-2 bd-highlight" id="perfil-edite"></div>
+  
+
+</div>
+<!--DIV PARA EDITAR DADOS  -->
+<div class="perfil" id="perfil-edite"></div>
+ 
+<!-- aqui vou listar as vagas deste recrutador -->
+<div class="container-fluid" id="cards">
+<!-- parar para não exibir vagas -->
+ 
+<div class="">Lista de canditados por vagas</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>John</td>
+      <td>Doe</td>
+      <td>@social</td>
+    </tr>
+  </tbody>
+</table>
+<!-- exibo as vagas -->
+ <div class="container-fluid" id="cards">
+  
+  <div id="form-Pesquisa" class="mb-3">
+    <label for="select-cidade">Pesquisar:</label>
+    <input type="text" id="buscaVaga" class="form-control" placeholder="Buscar vaga...">
+  </div>
+  <div class="d-flex flex-row bd-highlight mb-3">
+    <div class="p-2 bd-highlight">
+      <div id="form-Pesquisa" class="mb-3">
+        <label for="select-cidade">Tipo Contrato :</label>
+        <select class="form-control" id="filtroContrato">
+          <option value="">TODOS</option>
+          <option value="clt">CLT</option>
+          <option value="pj">PJ</option>
+          <option value="freelancer">Freelancer</option>
+          <option value="estagio">Estágio</option>
+          <option value="temporario">Temporário</option>
+          <option value="CLT/PJ">CLT OU PJ </option>
+        </select>
+      </div>
+    </div>
+    <div class="p-2 bd-highlight">
+      <div id="form-Pesquisa" class="mb-3">
+        <label for="select-cidade">Modelo Trabalho :</label>
+        <select class="form-control" id="filtromodelo">
+          <option value="">TODOS</option>
+          <option value="remoto">Remoto</option>
+          <option value="presencial">Presencial</option>
+          <option value="hibrido">Híbrido</option>
+         </select>
+      </div>
+    </div>
+    <div class="p-2 bd-highlight">
+      <div id="form-Pesquisa" class="mb-3">
+        <label for="select-cidade">Localizção:</label>
+       
+          <label for="select-estado">Estado:</label>
+          <select id="select-estado" class="form-control"></select>
+        </div>
+ </div>
+      <div class="p-2 bd-highlight">
+        <div id="form-cidades" class="mb-3">
+          <label for="select-cidade">Cidade:</label>
+          <select id="select-cidades" class="form-control"></select>
+        </div>
+      </div>
+   </div>
+<div id="paginacao" class="text-center mt-3"></div>
+  <div class="vagas" id="listarVagas"></div>
+
+</div>
+
+<div class="vagas" id="semVagas"></div>
+   
+<div class="vagas" id="listarVagas"></div>
+
+<div class="container-fluid" id="cards"></div>
+<!--redicionar para a page listar -->
+<div class="form-control" id="listar-Users"></div>
+
+
+<div class="modal fade" id="modalVagas" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalVagas" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -88,20 +196,48 @@
     </div>
   </div>
 </div>
+<!-- modal para o perfil -->
+ <div class="modal fade" id="modalEdite" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalEdite" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modalEdite">Editar Perfil</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div class="container mt-4">
+  <form id="form-edit-perfil" method="POST">
+   <div class="mb-3">
+     <div class="erros" id="erros-vazios-recrutador"></div>
+                <label for="nomeCompleto" class="form-label">Nome completo</label>
+                <input type="text" class="form-control" id="nome-Completo-recrutador-edit" name="nomeRecurtador">
+            </div>
+             <div class="mb-3">
+                <label for="nomeEmpresa" class="form-label">Nome Empresa</label>
+                <input type="text" class="form-control" id="nome-empresa-edit" name="nomeEmpresa">
+            </div>
+             <div class="mb-3">
+                <label for="emailInput" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="email-Input-Recrutador-edit" name="emailRecrutador">
+            </div>
+            <div class="mb-3">
+                <label for="telefoneInput" class="form-label">Telefone</label>
+                <input type="tel" class="form-control" id="telefone-Input-Recrutador-edit" name="telefoneRecrutador" placeholder="(DDD) 99999-9999">
+            </div>          
+           <button type="submit" class="btn btn-primary">Salvar</button>
+           </form>
+      </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+ 
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-
-<!-- aqui vou listar as vagas deste recrutador -->
-<div class="container-fluid" id="cards">
-    <div class="vagas" id="listarVagas"></div>
-
-<div class="container-fluid" id="cards">
-<!--redicionar para a page listar --></div>
-<div class="form-control" id="listar-Users"></div>
-
-
-
 
 <script type="module" src="{{ asset('asset/webApi/Controller/controller.js')}}"></script>
 <script type="module" src="{{ asset('asset/webApi/CadVagas/Vagas.js')}}"></script>
+<script type="module" src="{{ asset('asset/webApi/CadVagas/editPerfil.js')}}"></script>
+<script type="module" src="{{ asset('asset/webApi/CadVagas/CadVagasCandidatos.js')}}"></script>
 @endsection

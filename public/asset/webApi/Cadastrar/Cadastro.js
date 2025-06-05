@@ -207,7 +207,7 @@ const formRecrutador = document.getElementById('form-recrutador')
 formRecrutador.addEventListener('submit', e => {
     e.preventDefault();
     SubmitRecrutador();
-    console.log('foi clicado');
+  
 
 });
 //para o recrutador
@@ -264,7 +264,7 @@ function SubmitRecrutador()
         phone: phoneRe,
         password: senhaRe,
         tipo: 1,
-        nempresa:empresa 
+        nameEmpresa:empresa 
        
      }
        const convert = JSON.stringify(dados);

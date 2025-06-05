@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RecruiterRequest extends FormRequest
+class RecruterEditResquest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,15 +19,15 @@ class RecruiterRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+     public function rules(): array
     {
         return [
 
             'nome' => 'required|string',
-           'nameEmpresa'=> 'required|string',
+             'nameEmpresa'=> 'required|string',
             'email' => 'required|email',
             'phone' => 'required|string',
-            'password' => 'required|string'
+
         ];
     }
       public function messages()
@@ -35,12 +35,11 @@ class RecruiterRequest extends FormRequest
    
     return [
        
-       'recruiter.required' => 'O nome e obrigatorio',
+       'nome.required' => 'O nome e obrigatorio',
        'nameEmpresa.required' => 'O Nome Empresa e obrigatorio',
        'email.required' => 'O email é obrigatório.',
        'email.email' => 'Informe um email válido.', 
-       'password.required' => 'A senha é obrigatória.',
-       'password.min' => 'A senha deve ter no mínimo 8 caracteres.',
+      
    ];
 }
 }

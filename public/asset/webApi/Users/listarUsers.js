@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 let armazenadados = [];
 let paginaAtual = 1 //inicia na pagina 1 
-const qtpagain = ''; //quantidade de items por página
+const qtpagain = 2; //quantidade de items por página
 
 let numberPagina = document.getElementById('valorProcura');
 

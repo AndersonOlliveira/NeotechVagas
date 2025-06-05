@@ -59,9 +59,7 @@
 <script type="text/javascript" src="asset/js/cdn/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="asset/js/cdn/popper.min.js"></script>
 <script type="text/javascript" src="asset/js/cdn/bootstrap.min.js"></script>
- <!-- <script type="text/javascript" src="asset/js/cdn/bootstrap.bundle.min.js"></script> -->
-<!-- <script type="text/javascript" src="asset/js/cdn/jquery-3.7.1.min.js"></script>
-<script type="text/javascript" src="asset/js/cdn/bootstrap.min.js"></script>
-<script type="text/javascript" src="asset/js/cdn/popper.min.js"></script> --> 
+
+ <script type="text/javascript" src="asset/js/cdn/sweetalert.min.js"></script>
 </body>
 </html>

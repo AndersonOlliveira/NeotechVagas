@@ -2,8 +2,10 @@
 * {
     margin: 0;
     padding: 0;
+    background-color: #f5f5f5;
 
 }
+
 
 /* .card-consultar-chamado {
     padding: 30px 0 0 0;
@@ -13,9 +15,17 @@
 #cards{
   padding-top: 50px;
   margin: 10px,10px,10px,10px;
+  border-radius: 5px;
+  border-color: black;
 }
 
-
+.conteudo{
+    border-color: black !important;
+    background-color: red;
+}
+#nav-color{
+    background-color: rgb(245, 234, 221);
+}
 .card-login {
     padding: 30px 0 0 0;
     width: 350px;

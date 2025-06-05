@@ -1,5 +1,15 @@
 
-import { pushToken,token,pushModelo} from "../functions.js";
+import { pushToken,token,pushModelo,Estados} from "../functions.js";
+
+const nivelUsers = document.getElementById('nivel-user');
+const nivelUser = nivelUsers.dataset.nivel;
+const id = $('#id-user').val();
+
+console.log(nivelUser);
+if(nivelUser == 1 ){
+    
+
+
 document.getElementById('form-vaga').addEventListener('submit', async function (e) {
     e.preventDefault();
     
@@ -27,11 +37,7 @@ async function submitVagas()
      const pushModelos = document.querySelectorAll('input[name="tipoLocal[]"]:checked') 
      modelo = pushModelo(pushModelos);
      
-
-     console.log(modelo);
-
-
-   const dados = {
+    const dados = {
      titulo :titulo,
      descricao: descricao,
      tipoContrato:tipoContrato,
@@ -128,7 +134,7 @@ const dados = {
  
             } else {
 
-             montarErro();
+               montarErro();
              
             }
 
@@ -148,10 +154,20 @@ const dados = {
 
 }
 
-
 function montarVagas(dados)
 {  
-    console.log(dados);
+   
+     if(!dados[0]){
+
+        const divSVagas = document.getElementById('semVagas');
+         divSVagas.innerHTML = '';
+        const divsemvagas = document.createElement('div');
+        divsemvagas.className = 'card mb-3 bg-light';
+        divsemvagas.innerHTML = "SEM VAGAS CADASTRADAS";
+        divSVagas.appendChild(divsemvagas);
+       
+     }
+
     const divVagas = document.getElementById('listarVagas');
     divVagas.innerHTML = '';
 
@@ -185,3 +201,8 @@ function montarVagas(dados)
     });
 
 }
+}//nivel 1
+
+
+   
+

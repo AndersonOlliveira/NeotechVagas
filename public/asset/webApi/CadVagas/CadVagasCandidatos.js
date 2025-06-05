@@ -1,16 +1,23 @@
- import {
-     pushToken, Estados
- } from './functions.js'
+import { pushToken,token,pushModelo,Estados} from "../functions.js";
 
+const nivelUsers = document.getElementById('nivel-user');
+const nivelUser = nivelUsers.dataset.nivel;
+const id = $('#id-user').val();
+
+console.log(nivelUser);
+
+if(nivelUser == 0 ){
  document.addEventListener('DOMContentLoaded', function () {
      //chamo os estaddo e cidade
      Estados();
      buscarAllVaga();
-
+     
      document.addEventListener('click', function (event) {
          if (event.target.classList.contains('btn-success')) {
-
-             AlertaVaga();
+            const valor = event.target.getAttribute('data-valor');
+          
+             Candidatar(valor);
+     
 
          } //pegando o clik no botão;
      });
@@ -132,6 +139,7 @@ function buscarAllVaga() {
      const divVagas = document.getElementById('listarVagas');
      divVagas.innerHTML = '';
 
+
      dados.forEach(vaga => {
          const card = document.createElement('div');
          card.className = 'card mb-3 bg-light';
@@ -158,7 +166,7 @@ function buscarAllVaga() {
                     <h6 class="card-title">Data abertura: ${vaga.created_at ? new Date(vaga.created_at).toLocaleDateString() : ''}</h6>
                     <h6 class="card-title">Ref Cidade: ${vaga.cidade ?? 'Não informado'}</h6>
 
-                    <td> <input id="candidatar" name="Candidatar" class="btn btn-success Candidatar" type="submit" value="Candidatar-se"/></td>
+                    <td> <input id="candidatar" name="Candidatar" class="btn btn-success Candidatar" type="submit" data-valor="${vaga.id}" value="Candidatar-se"/></td>
                     </div>
                 `;
 
@@ -169,12 +177,70 @@ function buscarAllVaga() {
 
  //pegando o clik e exibir mensagem
 
- function AlertaVaga() {
+ function Candidatar(idButton) {
 
-     swal("Para se Candidatar a esta vaga!", "Acesse sua conta ou Cadastrar-se em nosso site!");
+ swal({
+        title: "Deseja se candidatar a esta vaga?",
+        text: "Confirme para prosseguir com a candidatura.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    })
+    .then((Candidatar) => {
+        if (Candidatar) {
+        
+            pushCandidatura(idButton);
 
- }
+            swal("Candidatura enviada com sucesso!", {
+                icon: "success",
+            });
+        } else {
+            swal("Ação cancelada.");
+        }
+    });
+}
 
-
-
-   
+}
+async function pushCandidatura(idButton)
+{
+     
+    const dadoUser = {
+            id: id,
+            idVaga: idButton
+    
+        }
+    
+        const valueToken = await token();
+        const dadosConvert = JSON.stringify(dadoUser);
+    
+        $.ajax({
+            url: 'api/Candidacy ',
+            type: 'POST',
+            dataType: 'json',
+            data: dadosConvert,
+            headers: {
+                'Authorization': 'Bearer ' + valueToken,
+                'X-CSRF-TOKEN': pushToken(),
+                'Content-Type': 'application/json',
+                'Accept': 'application/json', // Enviar o token CSRF
+            },
+            success: function (response) {
+    
+                if (response.Status == 2) {
+    
+                  swal(response.menssage);
+                } else {
+    
+    
+                   swal(response.menssage);
+    
+                }
+    
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr);
+                console.error('Erro ao enviar:', error);
+            }
+    
+        });
+}

@@ -45,14 +45,22 @@ class tb_vaga extends Model
             $idVaga = DB::table('tb_vagas')->insertGetId($insert);
             //faco o insert na empresa
             tb_empresa::inserAll($idVaga, $id);
-
-
-            DB::commit();
+ 
+             DB::commit();
 
             return $id;
+
         } catch (\Exception $e) {
-dd($e);
-            return 'Falha em inserir' . $e;
+
+              return 'Falha em inserir' . $e;
         }
     }
+
+   
+     public static function getInsertVaga($dados)
+     {
+
+     }
+
+
 }

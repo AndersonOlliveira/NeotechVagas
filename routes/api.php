@@ -7,6 +7,10 @@ use App\Http\Controllers\Api\CadastroUserController;
 use App\Http\Controllers\api\ListUsersController;
 use App\Http\Controllers\api\VagasController;
 
+//Rota para trazer as vagas 
+Route::post('/AllVagas',[VagasController::class, 'ListarAllvagas'])->name('todas as vagas');
+
+
 Route::post('/Cadastro', [CadastroUserController::class, 'processCad'])->name('CadProcess');
 Route::post('/CadastroRecrutador', [CadastroUserController::class, 'recruiterCadRecutrador'])->name('recruiterProcess');
 
@@ -30,5 +34,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
      Route::post('/Deletar', [ListUsersController::class, 'dell'])->name('DeletarUser');
 
      Route::post('/AtivarUser', [ListUsersController::class, 'ative'])->name('AtivarUser');
+
+     Route::post('/BuscarUser', [ListUsersController::class, 'allUser'])->name('User');
+
+     Route::post('/EditUser', [ListUsersController::class, 'EditUser'])->name('Edit');
+
+     Route::post('/Candidacy', [VagasController::class, 'CadUserVg'])->name('vagaCaf');
+
+     Route::post('/ListCandidacyUser', [VagasController::class, 'listCandaciy'])->name('LitCand');
 
 });

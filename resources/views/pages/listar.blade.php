@@ -4,24 +4,55 @@
 
 
 <div class="container-fluid" id="cards">
-    <div class="card mb-3 bg-light">
-        <div class="card-body">
-            <div id="status" class="element" data-status="" value="">
-                <p name="desc-vaga" value="" class="card-title">Descrição Vaga</p>
-                <h5 class="card-title"></h5>
-                <div class="informacao-direita">
-                    <div class="col d-flex align-items">
-                  aqui vem a descricao da vaga 
-                </div>
-               </div>
-                 <div class="card-title" id="dadosVaga"></div>
-               <h6 class="card-title">Data abertura: </h6>
-                <h6 class="card-title">Ref Cidade: </h6>
-                <h6 class="card-subtitle mb-2 text-muted"></h6>
-                <input id="candidatar" name="Candidatar" class="btn btn-success Candidatar" type="submit" value="Candidatar"/>
-              </div>
-        </div>
+  
+  <div id="form-Pesquisa" class="mb-3">
+    <label for="select-cidade">Pesquisar:</label>
+    <input type="text" id="buscaVaga" class="form-control" placeholder="Buscar vaga...">
+  </div>
+  <div class="d-flex flex-row bd-highlight mb-3">
+    <div class="p-2 bd-highlight">
+      <div id="form-Pesquisa" class="mb-3">
+        <label for="select-cidade">Tipo Contrato :</label>
+        <select class="form-control" id="filtroContrato">
+          <option value="">TODOS</option>
+          <option value="clt">CLT</option>
+          <option value="pj">PJ</option>
+          <option value="freelancer">Freelancer</option>
+          <option value="estagio">Estágio</option>
+          <option value="temporario">Temporário</option>
+          <option value="CLT/PJ">CLT OU PJ </option>
+        </select>
+      </div>
     </div>
+    <div class="p-2 bd-highlight">
+      <div id="form-Pesquisa" class="mb-3">
+        <label for="select-cidade">Modelo Trabalho :</label>
+        <select class="form-control" id="filtromodelo">
+          <option value="">TODOS</option>
+          <option value="remoto">Remoto</option>
+          <option value="presencial">Presencial</option>
+          <option value="hibrido">Híbrido</option>
+         </select>
+      </div>
+    </div>
+    <div class="p-2 bd-highlight">
+      <div id="form-Pesquisa" class="mb-3">
+        <label for="select-cidade">Localizção:</label>
+       
+          <label for="select-estado">Estado:</label>
+          <select id="select-estado" class="form-control"></select>
+        </div>
+ </div>
+      <div class="p-2 bd-highlight">
+        <div id="form-cidades" class="mb-3">
+          <label for="select-cidade">Cidade:</label>
+          <select id="select-cidades" class="form-control"></select>
+        </div>
+      </div>
+   </div>
+<div id="paginacao" class="text-center mt-3"></div>
+  <div class="vagas" id="listarVagas"></div>
+
 </div>
 
 
