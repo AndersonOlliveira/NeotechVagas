@@ -1,86 +1,90 @@
-
-import { pushToken,token,pushModelo,Estados} from "../functions.js";
+import {
+    pushToken,
+    token,
+    pushModelo,
+    Estados
+} from "../functions.js";
 
 const nivelUsers = document.getElementById('nivel-user');
 const nivelUser = nivelUsers.dataset.nivel;
 const id = $('#id-user').val();
 
 console.log(nivelUser);
-if(nivelUser == 1 ){
-    
+if (nivelUser == 1) {
 
 
-document.getElementById('form-vaga').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    
-     submitVagas();
 
-});
+    document.getElementById('form-vaga').addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-$(document).ready(function(){
+        submitVagas();
 
-    Vagasid();
-});
+    });
 
-async function submitVagas()
-{ 
-     let titulo,descricao,tipoContrato,local,salario,requisitos,beneficios,user,modelo;
+    $(document).ready(function () {
 
-     titulo = $('#titulo').val();
-     descricao =$('#descricao').val();
-     tipoContrato = $('#tipoContrato').val();
-     local = $('#local').val();
-     salario= $('#salario').val();
-     requisitos = $('#requisitos').val();
-     beneficios = $('#beneficios').val();
-     user = $('#id-user').val();
-     const pushModelos = document.querySelectorAll('input[name="tipoLocal[]"]:checked') 
-     modelo = pushModelo(pushModelos);
-     
-    const dados = {
-     titulo :titulo,
-     descricao: descricao,
-     tipoContrato:tipoContrato,
-     local:local,
-     salario:salario,
-     requisitos:requisitos,
-     beneficios:beneficios,
-     id:user,
-     modeloTra: modelo
-   
-    }
+        Vagasid();
+        PickupCandi();
+    });
 
-    const convertDados = JSON.stringify(dados);
-    const valueToken = await token();
+    async function submitVagas() {
+        let titulo, descricao, tipoContrato, local, salario, requisitos, beneficios, user, modelo;
 
-    
- $.ajax({
-        url: '/api/Vacancies', // A URL onde os dados serão enviados
-        type: 'post',
-        dataType: 'json',
-        data: convertDados, // Dados do formulário
-        headers: {
-           'Authorization': 'Bearer ' + valueToken,
-            'X-CSRF-TOKEN': pushToken(),
-             'Content-Type': 'application/json',
-             'Accept': 'application/json', // Enviar o token CSRF
-        },
-        success: function (response) {
+        titulo = $('#titulo').val();
+        descricao = $('#descricao').val();
+        tipoContrato = $('#tipoContrato').val();
+        local = $('#local').val();
+        salario = $('#salario').val();
+        requisitos = $('#requisitos').val();
+        beneficios = $('#beneficios').val();
+        user = $('#id-user').val();
+        const pushModelos = document.querySelectorAll('input[name="tipoLocal[]"]:checked')
+        modelo = pushModelo(pushModelos);
 
-           
-            if (response.Status == 2) {
+        const dados = {
+            titulo: titulo,
+            descricao: descricao,
+            tipoContrato: tipoContrato,
+            local: local,
+            salario: salario,
+            requisitos: requisitos,
+            beneficios: beneficios,
+            id: user,
+            modeloTra: modelo
+
+        }
+
+        const convertDados = JSON.stringify(dados);
+        const valueToken = await token();
 
 
-             
- 
-            } else {
+        $.ajax({
+            url: '/api/Vacancies', // A URL onde os dados serão enviados
+            type: 'post',
+            dataType: 'json',
+            data: convertDados, // Dados do formulário
+            headers: {
+                'Authorization': 'Bearer ' + valueToken,
+                'X-CSRF-TOKEN': pushToken(),
+                'Content-Type': 'application/json',
+                'Accept': 'application/json', // Enviar o token CSRF
+            },
+            success: function (response) {
 
-             
-            }
 
-        },
-        error: function (xhr, status, error) {
-        const errors = xhr.responseJSON.errors;
+                if (response.Status == 2) {
+
+
+
+
+                } else {
+
+
+                }
+
+            },
+            error: function (xhr, status, error) {
+                const errors = xhr.responseJSON.errors;
                 for (let campo in errors) {
                     errors[campo].forEach(msg => {
 
@@ -90,57 +94,56 @@ async function submitVagas()
                 console.error('Erro ao enviar:', error);
             }
 
-    });
-
-
-     
-}
-
-// buscar vagas por id 
-
-async function Vagasid()
-{  
-    let user;
-
-    user = $('#id-user').val();
+        });
 
 
 
-const dados = {
-   
-     id:user
-   
     }
 
-    const convertDados = JSON.stringify(dados);
-    const valueToken = await token();
+    // buscar vagas por id 
 
- $.ajax({
-        url: '/api/Allvagasid', // A URL onde os dados serão enviados
-        type: 'post',
-        dataType: 'json',
-        data: convertDados, // Dados do formulário
-        headers: {
-           'Authorization': 'Bearer ' + valueToken,
-            'X-CSRF-TOKEN': pushToken(),
-             'Content-Type': 'application/json',
-             'Accept': 'application/json', // Enviar o token CSRF
-        },
-        success: function (response) {
+    async function Vagasid() {
+        let user;
 
-            if (response.Status == 2) {
+        user = $('#id-user').val();
 
-               montarVagas(response.data);
- 
-            } else {
 
-               montarErro();
-             
-            }
 
-        },
-        error: function (xhr, status, error) {
-        const errors = xhr.responseJSON.errors;
+        const dados = {
+
+            id: user
+
+        }
+
+        const convertDados = JSON.stringify(dados);
+        const valueToken = await token();
+
+        $.ajax({
+            url: '/api/Allvagasid', // A URL onde os dados serão enviados
+            type: 'post',
+            dataType: 'json',
+            data: convertDados, // Dados do formulário
+            headers: {
+                'Authorization': 'Bearer ' + valueToken,
+                'X-CSRF-TOKEN': pushToken(),
+                'Content-Type': 'application/json',
+                'Accept': 'application/json', // Enviar o token CSRF
+            },
+            success: function (response) {
+
+                if (response.Status == 2) {
+
+                    montarVagas(response.data);
+
+                } else {
+
+                    montarErro();
+
+                }
+
+            },
+            error: function (xhr, status, error) {
+                const errors = xhr.responseJSON.errors;
                 for (let campo in errors) {
                     errors[campo].forEach(msg => {
 
@@ -150,31 +153,30 @@ const dados = {
                 console.error('Erro ao enviar:', error);
             }
 
-    });
+        });
 
-}
+    }
 
-function montarVagas(dados)
-{  
-   
-     if(!dados[0]){
+    function montarVagas(dados) {
 
-        const divSVagas = document.getElementById('semVagas');
-         divSVagas.innerHTML = '';
-        const divsemvagas = document.createElement('div');
-        divsemvagas.className = 'card mb-3 bg-light';
-        divsemvagas.innerHTML = "SEM VAGAS CADASTRADAS";
-        divSVagas.appendChild(divsemvagas);
-       
-     }
+        if (!dados[0]) {
 
-    const divVagas = document.getElementById('listarVagas');
-    divVagas.innerHTML = '';
+            const divSVagas = document.getElementById('semVagas');
+            divSVagas.innerHTML = '';
+            const divsemvagas = document.createElement('div');
+            divsemvagas.className = 'card mb-3 bg-light';
+            divsemvagas.innerHTML = "SEM VAGAS CADASTRADAS";
+            divSVagas.appendChild(divsemvagas);
 
-    dados.forEach(vaga => {
-        const card = document.createElement('div');
-        card.className = 'card mb-3 bg-light';
-        card.innerHTML = `
+        }
+
+        const divVagas = document.getElementById('listarVagas');
+        divVagas.innerHTML = '';
+
+        dados.forEach(vaga => {
+            const card = document.createElement('div');
+            card.className = 'card mb-3 bg-light';
+            card.innerHTML = `
        
         <div class="card-body">
                 <div id="status" class="element" data-status="${vaga.status ?? ''}">
@@ -197,12 +199,126 @@ function montarVagas(dados)
                     <h6 class="card-title">Ref Cidade: ${vaga.cidade ?? 'Não informado'}</h6>
                 `;
 
-        divVagas.appendChild(card);
+            divVagas.appendChild(card);
+        });
+
+    }
+    //vou listar quem candidatou as vagas junto com o curriculo; colocar o botáo pausa
+
+
+
+
+    async function PickupCandi() {
+
+        const valueToken = await token();
+
+        $.ajax({
+            url: 'api/PickUpCandidates ',
+            type: 'POST',
+            dataType: 'json',
+
+            headers: {
+                'Authorization': 'Bearer ' + valueToken,
+                'X-CSRF-TOKEN': pushToken(),
+                'Content-Type': 'application/json',
+                'Accept': 'application/json', // Enviar o token CSRF
+            },
+            success: function (response) {
+
+                if (response.Status == 2) {
+
+                    PickupCandidatos(response.data);
+                } else {
+
+
+                    swal(response.menssage);
+
+                }
+
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr);
+                console.error('Erro ao enviar:', error);
+            }
+
+        });
+    }
+
+    let armazenadados = [];
+    let paginaAtual = 1 //inicia na pagina 1 
+    const qtpagain = 2; //quantidade de items por página
+
+    let numberPagina = document.getElementById('valorProcura');
+
+    numberPagina.addEventListener('keyup', () => {
+        let number = $('#valorProcura').val();
+
+        if (!number) {
+            qtpagain = 2; //quantidade de items por página
+
+        } else {
+
+            qtpagain = number;
+        }
+
     });
 
-}
-}//nivel 1
 
 
-   
+    function PickupCandidatos(data, pagina = 1) {
+        armazenadados = data;
+        paginaAtual = pagina; //recebe o que esta passado por parametro
 
+        const pageInicio = (pagina - 1) * qtpagain;
+        const pageFim = pageInicio + qtpagain;
+        const conteudoPage = data.slice(pageInicio, pageFim);
+
+        let tableCorpo = document.getElementById('corpoCandidatos');
+        tableCorpo.innerHTML = '';
+
+        $.each(conteudoPage, function (index, valores) {
+
+            let cidadaEstado = valores['estado'] + '/' + valores['cidade'];
+             let linkDownload = valores['cv'] 
+        ? `<a href="/storage/Curriculos/${valores['idUser']}/${valores['cv']}" download target="_blank" class="btn btn-sm btn-success">Baixar CV</a>`
+        : 'Sem currículo';
+            let novaLinha = `
+<tr>
+    <td>${valores['id']}</td><td>${valores['nome_empresa']}</td>
+    <td>${valores['titulo']}</td>
+    <td>${valores['tipo_contrato']}</td>
+    <td>${valores['local']}</td>
+    <td>${valores['created_at']}</td>
+    <td>${valores['info']}</td>
+    <td>${valores['name']}</td>
+    <td>${valores['phone']}</td>
+    <td>${valores['idFomacao']}</td>
+    <td>${valores['nameCurso']}</td>
+    <td>${cidadaEstado}</td>
+    <td>${linkDownload}</td>`;
+
+            tableCorpo.innerHTML += novaLinha;
+
+        });
+        criarBotoesPaginacao(data.length, pagina);
+
+    }
+
+    function criarBotoesPaginacao(totalItens, paginaAtual) {
+        const totalPaginas = Math.ceil(totalItens / qtpagain);
+        let divPaginacao = document.getElementById('paginacao-pickup');
+        divPaginacao.innerHTML = '';
+
+        for (let i = 1; i <= totalPaginas; i++) {
+            const btn = document.createElement('button');
+            btn.innerText = i;
+            btn.className = 'btn btn-sm btn-outline-primary mx-1';
+            if (i == paginaAtual) {
+                btn.classList.add('active');
+            }
+            btn.onclick = () => PickupCandidatos(armazenadados, i);
+            divPaginacao.appendChild(btn);
+        }
+    }
+
+} //nivel 1

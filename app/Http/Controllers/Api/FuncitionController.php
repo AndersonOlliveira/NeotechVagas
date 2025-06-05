@@ -179,8 +179,35 @@ class FuncitionController extends Controller
         $id = array_search($formacoes, $idFormacoes);
 
          return $id !== false ? $id : 0;
-       }
+  
+        }
  
+          
+        public function getIdestado($idestado)
+        {
+
+            $estadosIBGE = Http::get("https://servicodados.ibge.gov.br/api/v1/localidades/estados");
+
+                $estados = $estadosIBGE->json();
+                
+                $retorno =  collect($estados)->firstWhere('id', (int)$idestado);
+
+                 return $retorno;
+
+        }
+        public function getIdMunicipio($iMucipio)
+        {
+
+         $municipioResponse = Http::get("https://servicodados.ibge.gov.br/api/v1/localidades/municipios/");
+
+
+                $estados = $municipioResponse->json();
+                
+                $retorno =  collect($estados)->firstWhere('id', (int)$iMucipio);
+                
+                 return $retorno;
+
+        }
 
 }
 

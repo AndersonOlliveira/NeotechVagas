@@ -6,6 +6,8 @@ import {
 } from "../functions.js";
 // form-editi-perfil
 
+
+
 document.addEventListener('click', function (event) {
     //pego o envento do click do perfil
     if (event.target.classList.contains('btn-primary')) {
@@ -47,7 +49,7 @@ async function buscaUser(dados, infoNivel) {
             } else {
 
 
-                alert(response.message);
+                swal(response.message);
 
             }
 
@@ -159,12 +161,12 @@ async function SubmitEdit() {
             if (response.Status == 2) {
 
         
-                console.log(response,'foi atualizado');
+                swal(response.message);
 
             } else {
 
 
-                alert(response.message);
+                swal(response.message);
 
             }
 

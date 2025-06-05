@@ -49,4 +49,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
      
      Route::post('/NewCv', [ListUsersController::class, 'NewCurriculo'])->name('CvNew');
 
+     Route::post('/PickUpCandidates', [ListUsersController::class, 'PickUp'])->name('Up');
+
 });

@@ -153,10 +153,6 @@ async function editCandi()
 
 
    const valueToken = await token();
- 
-
-    console.log(convert);
-
     
     $.ajax({
         url: 'api/EditarCandy',

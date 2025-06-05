@@ -4,9 +4,11 @@ const nivelUsers = document.getElementById('nivel-user');
 const nivelUser = nivelUsers.dataset.nivel;
 const id = $('#id-user').val();
 
-console.log(nivelUser);
-
 if(nivelUser == 0 ){
+ const recruitadpr  = document.getElementById('tabelaRecrutador');
+   recruitadpr.style.display = 'none'; 
+
+
  document.addEventListener('DOMContentLoaded', function () {
      //chamo os estaddo e cidade
      Estados();
@@ -360,7 +362,7 @@ function criarBotoesPaginacao(totalItens, paginaAtual) {
         if (i == paginaAtual) {
             btn.classList.add('active');
         }
-        btn.onclick = () => montarTable(armazenadados, i);
+        btn.onclick = () => polupaTable(armazenadados, i);
         divPaginacao.appendChild(btn);
     }
 }

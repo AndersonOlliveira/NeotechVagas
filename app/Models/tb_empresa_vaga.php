@@ -56,10 +56,43 @@ class tb_empresa_vaga extends Model
          'rc.nome_empresa',
          'tbvagas.id'
          )->get();
+        
+          return $retornoVagas;
+
+      }
 
 
+      public static function getVagasPickup()
+      {
 
-        return $retornoVagas;
+            $retorno = DB::table('tb_candidato_vaga as cvgas')
+        ->leftjoin('tb_vagas as vaga' , 'vaga.id', '=','cvgas.vaga_id')
+        ->leftjoin('tb_empresa_vaga as empVagas' , 'empVagas.vaga_id', '=', 'vaga.id')
+        ->leftjoin('tb_recruiter as recru' , 'recru.idUserRecruiter', '=', 'empVagas.id_empresa')
+        ->leftJoin('tb_usuarios as candidatos' , 'candidatos.idUser', '=', 'cvgas.candidato_id')
+        ->select(
+         'recru.nome_empresa',
+         'vaga.titulo',
+         'vaga.tipo_contrato',
+         'vaga.local',
+         'cvgas.created_at',
+         'vaga.modelo_vaga',
+         'cvgas.id',
+         'vaga.deleted_at as info',
+         'candidatos.name',
+         'candidatos.phone',
+         'candidatos.genero',
+         'candidatos.idFomacao',
+         'candidatos.nameCurso',
+         'candidatos.cv',
+         'candidatos.estado',
+         'candidatos.cidade',
+         'candidatos.idUser',
+          
+         )
+         ->get();
 
+        
+          return $retorno;
       }
 }

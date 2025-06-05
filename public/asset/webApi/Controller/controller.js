@@ -18,7 +18,7 @@ if (nivelUser != 0 && nivelUser != 2) {
     divModal.appendChild(selectElement);
    
      //CRIO BOTÁO PARA EDITAR DADOS
-     const divModalpefil = document.getElementById('perfil-edite');
+    const divModalpefil = document.getElementById('perfil-edite');
     const bottonEdite = document.createElement('button');
     bottonEdite.className = 'btn btn-primary';
     bottonEdite.id = 'forms-edit-perfil';
@@ -32,6 +32,7 @@ if (nivelUser != 0 && nivelUser != 2) {
     divModalpefil.appendChild(bottonEdite);
 
 
+   
 
 }
 

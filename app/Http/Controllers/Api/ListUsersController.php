@@ -17,6 +17,7 @@ use App\Http\Requests\EditCandiRequest;
 use App\Http\Requests\EditRequest;
 use App\Http\Requests\RecruiterRequest;
 use App\Http\Requests\RecruterEditResquest;
+use App\Models\tb_empresa_vaga;
 use App\Models\tb_recruite;
 use App\Models\tb_usuario;
 use Illuminate\Foundation\Http\FormRequest;
@@ -363,5 +364,85 @@ class ListUsersController extends Controller
  
              
          return response()->json(['Status' => 0, 'menssage' => 'Contate o Administrador '], 500);
+     }
+
+     public  function PickUp():JsonResponse
+     {
+        
+        $verificar = new FuncitionController();
+        //verifico se esta logado, por mas que tenha o token
+        $user = $verificar->finduser();
+
+        if (!isset($user->nivelUser) ) {
+
+            return response()->json(['Status' => 0,'menssage' => 'Verique sem tem acesso para listar '], 500);
+        }
+           if (in_array($user->nivelUser, [2, 0])) {
+              return response()->json([ 'Status' => 0,'menssage' => 'Acesso não permitido.']);
+        }
+           $tratarDados  =  tb_empresa_vaga::getVagasPickup();
+        
+     
+        foreach ($tratarDados as $item) {
+            foreach ($item as $campo => $valor) {
+
+                if ($campo == 'estado' && is_numeric($valor)) {
+
+                    $estadoEncontrado =   $verificar->getIdestado((int)$valor); 
+
+                    if ($estadoEncontrado) {
+                        
+                        $item->estado = $estadoEncontrado['nome'];
+                    }
+                }
+
+                if ($campo == 'cidade' && is_numeric($valor)) {
+                    
+                    $estadoEncontrado =   $verificar->getIdMunicipio((int)$valor); 
+                   
+                     $item->cidade = $estadoEncontrado['nome'];
+                
+                    }
+
+                if ($campo == 'phone' && is_numeric($valor)) {
+                    $retornoPhones = $verificar->maskPhone($valor);
+                    $item->phone = $retornoPhones;
+                }
+
+                if ($campo == 'genero' && is_numeric($valor)) {
+                    $retornoGenero = $verificar->functionGenero($valor);
+                    $item->genero = $retornoGenero;
+                }
+                if ($campo == 'idFomacao' && is_numeric($valor)) {
+                    $retornoFormacao = $verificar->functionFormacao($valor);
+                    $item->idFomacao = $retornoFormacao;
+                }
+                if ($campo == 'nivelUser' && is_numeric($valor)) {
+                    $infoNivel = $verificar->functionNivel($valor);
+                    $item->nivelUser = $infoNivel;
+                }
+                if ($campo == 'info') {
+                    $infos = $verificar->functionAtivo($valor);
+                    $item->info = $infos;
+                }
+            }
+            //salvo no array todas as alteracoes
+            $lista[] = $item;
+        }
+
+        if ($lista) {
+
+            return response()->json(['Status' => 2, 'data' => $lista,  'menssage' => 'Sucesso em consultar Lista'], 200);
+        } else {
+
+            return response()->json(['Status' => 0, 'menssage' => 'Falha ao Solicitar Lista'], 500);
+        }
+
+
+
+
+
+
+          return response()->json(['Status' => 0, 'menssage' => 'Contate o Administrador '], 500);
      }
 }
