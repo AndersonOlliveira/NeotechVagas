@@ -11,6 +11,7 @@ if(nivelUser == 0 ){
      //chamo os estaddo e cidade
      Estados();
      buscarAllVaga();
+     ListCandidacyUser();
      
      document.addEventListener('click', function (event) {
          if (event.target.classList.contains('btn-success')) {
@@ -243,4 +244,123 @@ async function pushCandidatura(idButton)
             }
     
         });
+}
+
+async function ListCandidacyUser()
+{
+     
+    const dadoUser = {
+            id: id,
+        }
+    
+        const valueToken = await token();
+        const dadosConvert = JSON.stringify(dadoUser);
+    
+        $.ajax({
+            url: 'api/ListCandidacyUser ',
+            type: 'POST',
+            dataType: 'json',
+            data: dadosConvert,
+            headers: {
+                'Authorization': 'Bearer ' + valueToken,
+                'X-CSRF-TOKEN': pushToken(),
+                'Content-Type': 'application/json',
+                'Accept': 'application/json', // Enviar o token CSRF
+            },
+            success: function (response) {
+    
+                if (response.Status == 2) {
+    
+                    polupaTable(response.data);
+                } else {
+    
+    
+                   swal(response.menssage);
+    
+                }
+    
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr);
+                console.error('Erro ao enviar:', error);
+            }
+    
+        });
+}
+
+let armazenadados = [];
+let paginaAtual = 1 //inicia na pagina 1 
+const qtpagain = 2; //quantidade de items por página
+
+let numberPagina = document.getElementById('valorProcura');
+
+numberPagina.addEventListener('keyup', () => {
+ let number = $('#valorProcura').val();
+
+ if(!number){
+       qtpagain = 2; //quantidade de items por página
+
+ }else{
+
+    qtpagain = number;
+ }
+
+});
+
+
+
+function polupaTable(data, pagina = 1) {
+    armazenadados = data;
+    paginaAtual = pagina;//recebe o que esta passado por parametro
+
+    const pageInicio = (pagina -1) * qtpagain;
+    const pageFim = pageInicio + qtpagain;
+    const conteudoPage   = data.slice(pageInicio,pageFim);
+
+    let tableCorpo = document.getElementById('corpoTabelaCandidato');
+    tableCorpo.innerHTML ='';
+
+    $.each(conteudoPage, function (index, valores) {
+      
+        let novaLinha = `
+<tr>
+    <td>${valores['id']}</td><td>${valores['nome_empresa']}</td>
+    <td>${valores['titulo']}</td>
+    <td>${valores['tipo_contrato']}</td>
+    <td>${valores['local']}</td><td>${valores['created_at']}
+    <td>
+    <div class="d-flex flex-row bd-highlight mb-3">
+
+        ${valores['info'] == null ? `
+         <div class="p-2 bd-highlight">
+                  Ativa
+                </div>  `
+                 :
+                  `
+         <div class="p-2 bd-highlight"></div>
+    </td>
+</tr>
+`}`; 
+       tableCorpo.innerHTML += novaLinha;
+
+  });
+    criarBotoesPaginacao(data.length, pagina);
+
+}
+
+function criarBotoesPaginacao(totalItens, paginaAtual) {
+    const totalPaginas = Math.ceil(totalItens / qtpagain);
+    let divPaginacao = document.getElementById('paginacao-candidacy');
+    divPaginacao.innerHTML = '';
+
+    for (let i = 1; i <= totalPaginas; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = i;
+        btn.className = 'btn btn-sm btn-outline-primary mx-1';
+        if (i == paginaAtual) {
+            btn.classList.add('active');
+        }
+        btn.onclick = () => montarTable(armazenadados, i);
+        divPaginacao.appendChild(btn);
+    }
 }

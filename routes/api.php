@@ -43,4 +43,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 
      Route::post('/ListCandidacyUser', [VagasController::class, 'listCandaciy'])->name('LitCand');
 
+     Route::post('/ListdataPerfil', [ListUsersController::class, 'Perfil'])->name('listPerfil');
+
+     Route::post('/EditarCandy', [ListUsersController::class, 'EditUserCandy'])->name('EditiCandy');
+     
+     Route::post('/NewCv', [ListUsersController::class, 'NewCurriculo'])->name('CvNew');
+
 });

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\Email;
+use Illuminate\Support\Facades\Http;
 
 class FuncitionController extends Controller
 {
@@ -129,5 +130,57 @@ class FuncitionController extends Controller
             return false;
         }
        }
+
+       public function consultaibge($estado)
+       {
+         $estadosIBGE = Http::get("https://servicodados.ibge.gov.br/api/v1/localidades/estados");
+
+          $estados = $estadosIBGE->json();
+
+               $estadoEncontrado = collect($estados)->firstWhere('nome', $estado);
+                    if ($estadoEncontrado) { 
+
+                        return $estadoEncontrado['id'];
+                     }else{
+                        return false;
+                     }
+
+       }
+           public function consultaCidade($cidade)
+       {
+         $IBGE = Http::get("https://servicodados.ibge.gov.br/api/v1/localidades/municipios/");
+
+          $dadosCidades = $IBGE->json();
+                   
+    
+
+               $encontrado = collect($dadosCidades)->firstWhere('nome', $cidade);
+                    if ($encontrado) { 
+
+                        return $encontrado['id'];
+                     }else{
+                        return false;
+                     }
+
+       }
+
+
+       public function verificarCurso($formacoes)
+       {
+        
+         $idFormacoes = [
+            1 => 'Ensino Médio',
+            2 => 'Graduação',
+            3 => 'Pós-graduação',
+        ];
+
+    
+         //procurro o contratario
+        $id = array_search($formacoes, $idFormacoes);
+
+         return $id !== false ? $id : 0;
+       }
+ 
+
 }
 

@@ -64,14 +64,14 @@ class tb_candidato_vagas extends Model
         ->select(
          'recru.nome_empresa',
          'vaga.titulo',
-         'vaga.descricao',
          'vaga.tipo_contrato',
          'vaga.local',
-         'vaga.created_at',
+         'cvgas.created_at',
          'vaga.modelo_vaga',
          'cvgas.id',
+         'vaga.deleted_at as info'
          )->where('cvgas.candidato_id', $id)
-         ->where('vaga.deleted_at',null)->get();
+         ->get();
 
           return $retorno;
      }

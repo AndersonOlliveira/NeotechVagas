@@ -37,7 +37,7 @@ class VagasRequest extends FormRequest
    {
    
     return [
-       'titulo.required'        => 'O título é obrigatório.',
+        'titulo.required'        => 'O título é obrigatório.',
         'titulo.string'          => 'O título deve ser um texto.',
 
         'descricao.required'     => 'A descrição é obrigatória.',

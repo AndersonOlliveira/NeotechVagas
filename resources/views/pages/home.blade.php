@@ -10,6 +10,9 @@
 <div class="p-2 bd-highlight" id="div-vagas"></div>
 
 <div class="p-2 bd-highlight" id="perfil-edite"></div>
+
+<div class="p-2 bd-highlight" id="perfil-edite-candidacy"></div>
+
   
 
 </div>
@@ -20,37 +23,33 @@
 <div class="container-fluid" id="cards">
 <!-- parar para não exibir vagas -->
  
-<div class="">Lista de canditados por vagas</div>
-<table class="table">
+<div class="">Vagas Cadastradas: </div>
+  <div id="resultado"></div>
+      <input type="number" id="valorProcura">
+    <div class="table-responsive">
+        <button id="clearFiltro" class="btn btn-info nav-easy nav-color">Limpar Filtro</button>
+       
+  
+      <input type="text" id="searchInput" placeholder="Digite nome ou email..." class="form-control col-m2" />
+
+<table class="table" class="table table-bordered border-secundary" >
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Id_Vaga</th>
+      <th scope="col">Nome Empresa</th>
+      <th scope="col">Descrição da Vaga</th>
+      <th scope="col">Tipo trabalho</th>
+      <th scope="col">Local</th>
+      <th scope="col">Data Cadastro vaga</th>
+      <th scope="col">Status Vaga</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>John</td>
-      <td>Doe</td>
-      <td>@social</td>
-    </tr>
+  <tbody id="corpoTabelaCandidato">
+    
   </tbody>
 </table>
+</div>
+<div id="paginacao-candidacy" class="text-center mt-3"></div>
 <!-- exibo as vagas -->
  <div class="container-fluid" id="cards">
   

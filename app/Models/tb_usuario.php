@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class tb_usuario extends Model
 {
@@ -45,7 +48,59 @@ class tb_usuario extends Model
 
         return $e;
     }
+ }
+     public static function getId($id)
+     {
+            
+          $retorno = DB::table('Users as user')
+         ->leftJoin('tb_usuarios as canditados', 'canditados.idUser'  ,'=', 'user.id')
+         ->select(
+            'user.name as nomes',
+            'user.id as idUsers',
+            'user.email',
+            'user.nivelUser',
+            'user.deleted_at as info',
+            'canditados.*'
+         )->where('user.id', '=', $id)
+         ->get();
+          
+         return $retorno;
+
+     }
+
+     
+        public static function updatedId($request,$retornoPhome,$retornoEstado,$retornoCidade,$retornoCurso)
+        {
+               extract($request->all());
+         $redis = Redis::connection('default');
+         $json = ['id' => $id, 'dia' => Carbon::now(), 'Ativado', Auth::user() ];
+         
+         $redis->set('update_user', json_encode($json));
+         
+         DB::table('tb_usuarios')
+            ->where('idUser', $id)
+            ->update([
+                'phone' => $retornoPhome,
+                'name' => $nome,
+                'idFomacao' => $retornoCurso,
+                'nameCurso' => $nameCurso,
+                'estado' => $retornoEstado,
+                'cidade' => $retornoCidade,
+                'updated_at' => now(),
+            ]);
+
+        DB::table('users')
+            ->where('id', $id)
+            ->update([
+                'name' => $nome,
+                'email' => $email
+            ]);
+
+        return true;
+            
+        }
+
 
 }
-}
+
 

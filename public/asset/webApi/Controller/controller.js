@@ -49,4 +49,17 @@ if(nivelUser == 2){
 
 }
 
+if(nivelUser == 0){
+   
+      let newlink;const  divlista = document.getElementById('perfil-edite-candidacy');
+   newlink = document.createElement('a');
+   newlink.innerHTML = 'Perfil';
+   newlink.className = "btn btn-primary";
+   newlink.link = 'Perfil';
+   newlink.setAttribute('href', 'Perfil');
+   divlista.appendChild(newlink);
+
+    console.log('nivel Candidato');
+}
+
 

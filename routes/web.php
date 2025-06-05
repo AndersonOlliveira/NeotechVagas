@@ -11,6 +11,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('/Login', [routesControllers::class, 'login'])->name('login');
     Route::get('/Cadastrar', [routesControllers::class, 'Cad'])->name('cadastrase');
     Route::post('/Home', [LoginController::class, 'processLogin'])->name('LoginProcess');
+    Route::get('/Perfil',[routesControllers::class, 'ExibirPerfil'])->name('Perfil');
     // Route::post('/Cadastro', [LoginController::class, 'processCad'])->name('CadProcess');
     Route::get('/Destroy', [LoginController::class, 'processDestroy'])->name('Destroy');
 
@@ -18,7 +19,7 @@ Route::middleware(['web'])->group(function () {
     Route::get('/redis',[routesControllers::class,'testeRedir'])->name('testeRedis');
 });
 
-Route::middleware(['web', 'auth'])->group(function () {
+    Route::middleware(['web', 'auth'])->group(function () {
     Route::get('/Home', [routesControllers::class, 'Homes'])->name('home');
     Route::get('/Listar', [routesControllers::class, 'List'])->name('ListarUsers');
    

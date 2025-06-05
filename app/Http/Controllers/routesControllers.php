@@ -34,6 +34,11 @@ class routesControllers extends Controller
 
     }
 
+    public function ExibirPerfil()
+    {
+        return view('pages.Perfil');
+    }
+
 
     public function testeRedir()
     {

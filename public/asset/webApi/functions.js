@@ -17,6 +17,13 @@ function validarCampo(campo, nomeCampo) {
     return false;
 }
 
+export function verificarArquivo(arquivo)
+{ 
+    let file = arquivo.files[0] || 0;
+   
+     return file;
+   
+}
 
 export function validacampos(nameComplente, email, phone, genero, dataNasc, city, estado, formacoes) {
 

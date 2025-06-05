@@ -26,7 +26,7 @@ class RecruterEditResquest extends FormRequest
             'nome' => 'required|string',
              'nameEmpresa'=> 'required|string',
             'email' => 'required|email',
-            'phone' => 'required|string',
+             'phone' => ['required', 'string', 'regex:/^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/'],
 
         ];
     }
